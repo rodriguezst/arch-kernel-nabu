@@ -1,0 +1,100 @@
+name: rebase-patches
+
+env:
+  REPO: 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git'
+  REF: 'linux-rolling-stable'
+
+on:
+  workflow_dispatch:
+  #schedule: 
+  #  - cron: '0 0 * * *'
+
+jobs:
+  rebase:
+    runs-on: ubuntu-24.04-arm
+    steps:
+
+      - name: Checkout srcdir
+        uses: actions/checkout@v4
+        with:
+          path: srcdir
+
+      - name: Get current kernel version
+        shell: bash
+        run: |
+          source srcdir/PKGBUILD
+          echo "PKGVER=$pkgver" >> $GITHUB_ENV
+          echo "PREV_REF=v${pkgver%.0}" >> $GITHUB_ENV
+
+      - name: Rebase & regenerate patches
+        shell: bash
+        run: |
+          git clone --depth=1 -b ${{ env.PREV_REF }} ${{ env.REPO }} linux
+          cd linux
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git am --whitespace=fix ../srcdir/*.patch
+          rm -rf ../srcdir/*.patch
+          git fetch --unshallow origin ${{ env.REF }}:${{ env.REF }}
+          git rebase ${{ env.REF }}
+          git log -1 ${{ env.REF }} > ../RELEASE.md
+          git format-patch ${{ env.REF }} --start-number=1 -o ../srcdir -- . ':!arch/*/configs/*' > /dev/null
+          KERNVER=$(grep -E '^VERSION|^PATCHLEVEL|^SUBLEVEL' Makefile | \
+            sed -E 's/[^0-9]*//g' | tr '\n' '.' | sed 's/\.$//' )
+          echo "KERNVER=${KERNVER}" >> $GITHUB_ENV
+
+      - name: Install kernel build deps
+        if: env.KERNVER != env.PKGVER
+        run: sudo apt update && sudo apt install build-essential bc flex bison
+
+      - name: Update config & build
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        run: |
+          cp srcdir/config linux/.config
+          cd linux
+          make olddefconfig
+          make -j$(nproc) Image.gz dtbs modules
+          cp .config ../srcdir/config
+
+      - name: Install pacman & pacman-contrib
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt install \
+            pacman-package-manager \
+            wget \
+            curl
+          url="https://archlinuxarm.org/packages/aarch64/pacman-contrib"
+          download_url=$(curl -s "$url" | grep -A1 "Download" | grep -oP 'http[^"]+')
+          wget "$download_url"
+          sudo pacman -dd --noconfirm -U pacman-contrib-*.pkg.tar.xz
+
+      - name: Update PKGBUILD and push new version
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd srcdir
+          # Update version numbers in PKGBUILD
+          sed -i 's/^pkgver=.*/pkgver='$KERNVER'/' PKGBUILD
+          sed -i 's/^pkgrel=.*/pkgrel=1/' PKGBUILD
+          # Remove all patch entries from source array
+          awk '/^source=/{p=1;print;next} /^[^[:space:]]/{p=0} p&&/\.patch/{next} {print}' PKGBUILD > PKGBUILD.new 
+          mv PKGBUILD.new PKGBUILD
+          # Add all new patch files to source array after config
+          for patch in $(ls -1 *.patch | sort -r); do
+            sed -i "/config'/a\\         '$patch'" PKGBUILD
+          done
+          # Replace sha256sums with SKIP
+          sed -i -e '/^sha256sums=/,/^[^[:space:]]/{/^sha256sums=/!{/^[^[:space:]]/!d}}' \
+                 -e 's/^sha256sums=.*/sha256sums=('\''SKIP'\'')\n/' PKGBUILD
+          # Calculate new sha256sums
+          updpkgsums
+          # Commit & push changes
+          git diff --name-only --diff-filter=D | xargs git add
+          git add config *.patch PKGBUILD
+          git commit -m "update to $KERNVER"
+          git push

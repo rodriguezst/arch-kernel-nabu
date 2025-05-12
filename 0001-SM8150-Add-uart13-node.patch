@@ -1,4 +1,4 @@
-From 99d38a1c2230c09c822723edf57898a4b6fc8330 Mon Sep 17 00:00:00 2001
+From 3cd5772a64be93c09498ee0743df0969c825879a Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sat, 13 Aug 2022 12:30:38 +0300
 Subject: [PATCH 01/56] SM8150: Add uart13 node

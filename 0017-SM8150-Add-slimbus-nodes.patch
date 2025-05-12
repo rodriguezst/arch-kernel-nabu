@@ -1,4 +1,4 @@
-From 5724895c1c4a2dc29f3a8665ca2944dd9a067d37 Mon Sep 17 00:00:00 2001
+From 75804dd5799d732f193b7de94cd8d0c4c1ef6fa9 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:34:06 +0300
 Subject: [PATCH 17/56] SM8150: Add slimbus nodes

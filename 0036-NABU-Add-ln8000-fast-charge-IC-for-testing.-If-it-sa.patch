@@ -1,4 +1,4 @@
-From 0a65609423d7bf88387e9bf70babd97cbdc8f85b Mon Sep 17 00:00:00 2001
+From 7bf8d2091df6a05de43818f37b51cdd7cdb6588c Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 11 Jan 2024 19:19:35 +0000
 Subject: [PATCH 36/56] NABU: Add ln8000 fast charge IC for testing. If it says

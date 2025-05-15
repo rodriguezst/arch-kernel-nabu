@@ -9,11 +9,11 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc' 'python3')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v6.x/patch-${pkgver}.xz"

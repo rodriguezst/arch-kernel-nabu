@@ -158,6 +158,7 @@ prepare() {
   done
 
   cat "${srcdir}/config" > ./.config
+  make olddefconfig
 }
 
 build() {

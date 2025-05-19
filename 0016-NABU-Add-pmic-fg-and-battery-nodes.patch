@@ -1,4 +1,4 @@
-From 849fb4559c4f7ea9ab38246670754be7e7c994cf Mon Sep 17 00:00:00 2001
+From 3dc68bf9d3f76d5d87584e010928b32b756e55b7 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 2 Aug 2023 19:20:01 +0300
 Subject: [PATCH 16/56] NABU: Add pmic fg and battery nodes

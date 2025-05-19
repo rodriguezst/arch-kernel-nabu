@@ -1,4 +1,4 @@
-From ff750bc81278bd3f6a189136426460a734a5ca37 Mon Sep 17 00:00:00 2001
+From 44beba4126f9f65796a200fea6a2b4176c579755 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 4 Jan 2024 12:59:44 +0000
 Subject: [PATCH 29/56] drm/msm/dpu: Fix dpu sspp features for sm8150 Why was

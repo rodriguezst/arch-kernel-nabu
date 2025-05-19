@@ -9,11 +9,11 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc' 'python3')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc' 'python3' 'systemd-ukify' 'sbsigntools')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v6.x/patch-${pkgver}.xz"
@@ -174,6 +174,19 @@ build() {
   make ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
 }
 
+_package_common() {
+  echo "Installing boot image and dtbs..."
+  install -Dm644 arch/arm64/boot/Image "${pkgdir}/boot/vmlinux-${kernver}"
+  install -Dm644 arch/arm64/boot/Image.gz "${pkgdir}/boot/vmlinuz-${kernver}"
+  install -Dm644 arch/arm64/boot/dts/${_dtbfile} "${pkgdir}/boot/dtb-${kernver}"
+
+  echo "Installing modules..."
+  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist modules_install
+
+  # remove build link
+  rm "$pkgdir/usr/lib/modules/$kernver/build"
+}
+
 _package() {
   pkgdesc="The Linux Kernel and modules - ${_desc}"
   depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
@@ -184,18 +197,8 @@ _package() {
 
   cd $_srcname
   local kernver="$(<version)"
-  local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
-  echo "Installing boot image and dtbs..."
-  install -Dm644 arch/arm64/boot/Image "${pkgdir}/boot/vmlinux-${kernver}"
-  install -Dm644 arch/arm64/boot/Image.gz "${pkgdir}/boot/vmlinuz-${kernver}"
-  install -Dm644 arch/arm64/boot/dts/${_dtbfile} "${pkgdir}/boot/dtb-${kernver}"
-
-  echo "Installing modules..."
-  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist modules_install
-
-  # remove build link
-  rm "$modulesdir"/build
+  _package_common
 
   # sed expression for following substitutions
   local _subst="
@@ -211,6 +214,50 @@ _package() {
   # which avoids a double run of mkinitcpio that can occur
   install -d "${pkgdir}/usr/lib/initcpio/"
   echo "dummy file to trigger mkinitcpio to run" > "${pkgdir}/usr/lib/initcpio/$(<version)"
+}
+
+_package-uki() {
+  pkgdesc="The Linux Kernel and modules - ${_desc} (UKI)"
+  depends=('coreutils' 'linux-firmware' 'kmod')
+  optdepends=('wireless-regdb: to set the correct wireless channels of your country')
+  provides=("linux=${pkgver}" "KSMBD-MODULE" "WIREGUARD-MODULE")
+  conflicts=('linux')
+  #install=${pkgname}.install
+
+  cd $_srcname
+  local kernver="$(<version)"
+
+  _package_common
+
+  if [[ ! -f "$SB_SIGN_KEY" || ! -f "$SB_SIGN_CERT" ]]; then
+    error "**********************************************"
+    error "To build UKI version, you MUST provide:"
+    error "1. SB_SIGN_KEY:    Path to private key"
+    error "2. SB_SIGN_CERT:   Path to certificate"
+    error "Set these via environment variables:"
+    error "   export SB_SIGN_KEY=/path/to/key"
+    error "   export SB_SIGN_CERT=/path/to/cert"
+    error "**********************************************"
+    exit 1
+  fi
+
+  # Set cmdline parameters
+  local cmdline_quiet="quiet loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0"
+  local cmdline_root="root=PARTLABEL=linux rw"
+  local cmdline_console="console=tty0"
+  local cmdline_other="systemd.gpt_auto=no cryptomgr.notests"
+
+  # Generate and sign UKI
+  mkdir -p "${pkgdir}/boot/efi/EFI/arch"
+  ukify build \
+    --linux="${pkgdir}/boot/vmlinux-${kernver}" \
+    --cmdline="${cmdline_console} ${cmdline_root} ${cmdline_quiet} ${cmdline_other}" \
+    --uname="${kernver}" \
+    --devicetree="${pkgdir}/boot/dtb-${kernver}" \
+    --os-release="Arch Linux ARM" \
+    --secureboot-private-key="$SB_SIGN_KEY" \
+    --secureboot-certificate="$SB_SIGN_CERT" \
+    --output="${pkgdir}/boot/efi/EFI/arch/uki-${kernver}.efi"
 }
 
 _package-headers() {
@@ -292,7 +339,7 @@ _package-headers() {
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
 }
 
-pkgname=("${pkgbase}" "${pkgbase}-headers")
+pkgname=("${pkgbase}" "${pkgbase}-headers" "${pkgbase}-uki")
 for _p in ${pkgname[@]}; do
   eval "package_${_p}() {
     _package${_p#${pkgbase}}

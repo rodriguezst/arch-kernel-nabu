@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -243,7 +243,7 @@ _package-uki() {
   fi
 
   # Set cmdline parameters
-  local cmdline_quiet="quiet loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0"
+  local cmdline_quiet="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0"
   local cmdline_root="root=PARTLABEL=linux rw"
   local cmdline_console="console=tty0"
   local cmdline_other="systemd.gpt_auto=no cryptomgr.notests"

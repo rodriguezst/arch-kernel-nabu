@@ -1,4 +1,4 @@
-From 8acf6be03e32f175940a70d5f299bbeb75b90088 Mon Sep 17 00:00:00 2001
+From 205b93e8552f7c9275a8472526228a4c48d5ecba Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Sun, 4 Jun 2023 21:44:33 +0300
 Subject: [PATCH 22/56] drm/msm/dsi: change sync mode to sync on DSI0 rather

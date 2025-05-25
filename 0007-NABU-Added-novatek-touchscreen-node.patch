@@ -1,4 +1,4 @@
-From 3aa58be8949897757f2f5afc515eb329d6fc5841 Mon Sep 17 00:00:00 2001
+From f5bc7d7ab7f36e17bb4156252f004ab910ddf48b Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sun, 14 Aug 2022 14:35:59 +0300
 Subject: [PATCH 07/56] NABU: Added novatek touchscreen node

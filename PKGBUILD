@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -77,7 +77,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         'linux.preset')
 sha256sums=('8112202bc26d086957a94d2109a6dcd4478c5ba18d0f0a5e1c5dfeea01f54972'
             '632b8428077584316178b17ebf385336c6d769cdc3f79ac8f6f81db16ad64515'
-            'fc1b254812ecca7b37338a10dcc98aeb23abc13947be4e0cc9bccb8ce0f21492'
+            'SKIP'
             'beb6beaedd56c0be952f63faf1a4132e0fdc697d1a7e60845b588ea536dfb92b'
             '3fb272330c282cd7b06a9ea9fcdaf40f64c6362923ffea31d8e4644bcecb15d0'
             'f56e360b227814ed66311d221c0665856922f95c71574d8c66477487963772e7'

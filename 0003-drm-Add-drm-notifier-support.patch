@@ -1,4 +1,4 @@
-From a1fed307735e482eeebf18c47c77d94d87327830 Mon Sep 17 00:00:00 2001
+From 1f36c69de9a1fb46d24b679cd4034abe57a11ec4 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Thu, 4 Aug 2022 13:26:53 +0800
 Subject: [PATCH 03/56] drm: Add drm notifier support

@@ -1,4 +1,4 @@
-From af04ab95bd42b58e58cece1b019f0f9327e49669 Mon Sep 17 00:00:00 2001
+From c50b7a85f772139af5e7300c15a8117f886fbae0 Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Sun, 14 Mar 2021 05:03:35 +0300
 Subject: [PATCH 26/56] drm/msm/dpu1: dpu_encoder_phys_*: proper support for

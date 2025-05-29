@@ -1,4 +1,4 @@
-From 40fcc2f9b9ec482ae3b2287e058ef6f17daeb0e4 Mon Sep 17 00:00:00 2001
+From c6572ebb6c0d982e94d2046c3a0f17d631011ca5 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sun, 23 Jul 2023 17:32:10 +0300
 Subject: [PATCH 06/56] nt36xxx: Fix module autoload

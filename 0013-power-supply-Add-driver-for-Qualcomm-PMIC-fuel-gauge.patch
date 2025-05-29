@@ -1,4 +1,4 @@
-From c99d6096132c3245516f96901b5ea3332ab6be3a Mon Sep 17 00:00:00 2001
+From 0923052a901b5ff95d8d5e4d8c34ad579cb80b27 Mon Sep 17 00:00:00 2001
 From: Joel Selvaraj <jo@jsfamily.in>
 Date: Wed, 3 Feb 2021 19:54:45 +0000
 Subject: [PATCH 13/56] power: supply: Add driver for Qualcomm PMIC fuel gauge

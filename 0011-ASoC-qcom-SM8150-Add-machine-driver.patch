@@ -1,4 +1,4 @@
-From cdf3fa595a25f3f45e6f5f40f3b55445d237a300 Mon Sep 17 00:00:00 2001
+From 2a006f4522c60da5dd2cc3d34ae2a48e55aa9783 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 28 Jul 2023 00:37:39 +0300
 Subject: [PATCH 11/56] ASoC: qcom: SM8150: Add machine driver

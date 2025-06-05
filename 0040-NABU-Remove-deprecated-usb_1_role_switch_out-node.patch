@@ -1,4 +1,4 @@
-From 078978c8d7a0fb3c25896a03e70dc073be943a3c Mon Sep 17 00:00:00 2001
+From dcf6a337e076fedc73e70f345e8f065ce66ecfce Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:29:36 +0000
 Subject: [PATCH 40/56] NABU: Remove deprecated usb_1_role_switch_out node.

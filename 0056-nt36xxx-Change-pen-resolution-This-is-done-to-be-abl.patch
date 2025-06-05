@@ -1,4 +1,4 @@
-From c60efc70d136229268c19376a64cda31adb53612 Mon Sep 17 00:00:00 2001
+From 2ac355ee55d916a55f14a06a2e3641ae765d1aa4 Mon Sep 17 00:00:00 2001
 From: tx0 <me@tx0.su>
 Date: Sat, 29 Mar 2025 16:33:10 +0500
 Subject: [PATCH 56/56] nt36xxx: Change pen resolution This is done to be able

@@ -1,7 +1,7 @@
-From 0689a36d53aa1ccc64a87cb4952840b23258ed4f Mon Sep 17 00:00:00 2001
+From 97ebf63966168534e79eda0326814612b1703fe5 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:37:44 +0300
-Subject: [PATCH 19/56] ASoC: qcom: SM8150: Add slimbus audio support Also
+Subject: [PATCH 19/54] ASoC: qcom: SM8150: Add slimbus audio support Also
  added improvements from sdm845 sound card driver.
 
 ---
@@ -187,8 +187,8 @@ index 443d684e8618..192714ca1976 100644
 +
  static int sm8150_snd_startup(struct snd_pcm_substream *substream)
  {
- 	unsigned int fmt = SND_SOC_DAIFMT_CBS_CFS;
- 	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBS_CFS;
+ 	unsigned int fmt = SND_SOC_DAIFMT_CBC_CFC;
+ 	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBC_CFC;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
 +	struct snd_soc_card *card = rtd->card;
@@ -337,5 +337,5 @@ index 443d684e8618..192714ca1976 100644
  	return devm_snd_soc_register_card(dev, card);
  }
 -- 
-2.48.1
+2.34.1
 

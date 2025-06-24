@@ -1,7 +1,7 @@
-From 9da756d81a3e9de13462c4def487c99377be0272 Mon Sep 17 00:00:00 2001
+From b229f2b28f201cbff5ee45065d2af45a1cc5d842 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Mon, 8 Jan 2024 21:18:15 +0000
-Subject: [PATCH 20/56] ASoC: qcom: sm8150: Fix compilation in v6.7.0
+Subject: [PATCH 20/54] ASoC: qcom: sm8150: Fix compilation in v6.7.0
 
 ---
  sound/soc/qcom/sm8150.c | 35 ++++++++++++++++++-----------------
@@ -65,8 +65,8 @@ index 192714ca1976..dcbd1cabb786 100644
  	struct snd_jack *jack;
 @@ -298,11 +299,11 @@ static int sm8150_snd_startup(struct snd_pcm_substream *substream)
  {
- 	unsigned int fmt = SND_SOC_DAIFMT_CBS_CFS;
- 	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBS_CFS;
+ 	unsigned int fmt = SND_SOC_DAIFMT_CBC_CFC;
+ 	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBC_CFC;
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
  	struct snd_soc_card *card = rtd->card;
@@ -116,5 +116,5 @@ index 192714ca1976..dcbd1cabb786 100644
  
  	if (sruntime && data->stream_prepared[cpu_dai->id]) {
 -- 
-2.48.1
+2.34.1
 

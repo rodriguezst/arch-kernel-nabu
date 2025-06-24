@@ -1,7 +1,7 @@
-From 2a006f4522c60da5dd2cc3d34ae2a48e55aa9783 Mon Sep 17 00:00:00 2001
+From f9e3a813e1c60faf66f64b2c201b189717b502a3 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 28 Jul 2023 00:37:39 +0300
-Subject: [PATCH 11/56] ASoC: qcom: SM8150: Add machine driver
+Subject: [PATCH 11/54] ASoC: qcom: SM8150: Add machine driver
 
 ---
  sound/soc/qcom/Kconfig  |  12 ++
@@ -221,8 +221,8 @@ index 000000000000..443d684e8618
 +
 +static int sm8150_snd_startup(struct snd_pcm_substream *substream)
 +{
-+	unsigned int fmt = SND_SOC_DAIFMT_CBS_CFS;
-+	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBS_CFS;
++	unsigned int fmt = SND_SOC_DAIFMT_CBC_CFC;
++	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBC_CFC;
 +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
@@ -308,5 +308,5 @@ index 000000000000..443d684e8618
 +MODULE_LICENSE("GPL v2");
 \ No newline at end of file
 -- 
-2.48.1
+2.34.1
 

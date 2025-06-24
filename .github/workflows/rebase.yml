@@ -86,7 +86,7 @@ jobs:
           mv PKGBUILD.new PKGBUILD
           # Add all new patch files to source array after config
           for patch in $(ls -1 *.patch | sort -r); do
-            sed -i "/config'/a\\         '$patch'" PKGBUILD
+            sed -i "/config'/a\\        '$patch'" PKGBUILD
           done
           # Replace sha256sums with SKIP
           sed -i -e '/^sha256sums=/,/^[^[:space:]]/{/^sha256sums=/!{/^[^[:space:]]/!d}}' \

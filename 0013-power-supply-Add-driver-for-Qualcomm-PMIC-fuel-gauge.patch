@@ -1,7 +1,7 @@
-From 0eb26492404a845355e59ae73fca043130afb1b6 Mon Sep 17 00:00:00 2001
+From 1f9016822483df89ec3577a2007f2c15716e2754 Mon Sep 17 00:00:00 2001
 From: Joel Selvaraj <jo@jsfamily.in>
 Date: Wed, 3 Feb 2021 19:54:45 +0000
-Subject: [PATCH 13/56] power: supply: Add driver for Qualcomm PMIC fuel gauge
+Subject: [PATCH 13/54] power: supply: Add driver for Qualcomm PMIC fuel gauge
 
 Ths driver supports the fuel gauge hardware available on PMICs such as PMI8994,
 as well as gen 3 fuel gauge hardware available on PMI8998.
@@ -37,7 +37,7 @@ Signed-off-by: map220v <map220v300@gmail.com>
  create mode 100644 drivers/power/supply/qcom_fg.c
 
 diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 7b18358f194a..46e49e338304 100644
+index 8dbd39afa43c..3bbca8685dc6 100644
 --- a/drivers/power/supply/Kconfig
 +++ b/drivers/power/supply/Kconfig
 @@ -1037,4 +1037,12 @@ config FUEL_GAUGE_MM8013
@@ -54,7 +54,7 @@ index 7b18358f194a..46e49e338304 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index b55cc48a4c86..8d7f47859af2 100644
+index 61677be328b0..b1ba4e0e5a61 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
 @@ -119,3 +119,4 @@ obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
@@ -1389,5 +1389,5 @@ index 000000000000..4af6c71370ff
 +MODULE_DESCRIPTION("Qualcomm PMIC Fuel Gauge Driver");
 +MODULE_LICENSE("GPL v2");
 -- 
-2.48.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From d181116653c73953cfd8e021d156cfa07d604e59 Mon Sep 17 00:00:00 2001
+From a74b0e10ded0a251e155bc65a81b1033bd53441e Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Sun, 14 Mar 2021 04:52:34 +0300
-Subject: [PATCH 23/56] drm/msm/dpu1: improve support for active CTLs
+Subject: [PATCH 23/54] drm/msm/dpu1: improve support for active CTLs
 
 - Support setting master interface if several INTFs are to be handled by
   a single CTL
@@ -15,41 +15,33 @@ recent MERGE_3D patch, implement proper active support for DSC]
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: map220v <map220v300@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 27 +++++++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 25 +++++++++++++++++++---
  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h |  2 ++
- 2 files changed, 26 insertions(+), 3 deletions(-)
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 4893f10d6a58..3b3195d026b3 100644
+index 411a7cf088eb..02148dff2891 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -544,9 +544,11 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 		struct dpu_hw_intf_cfg *cfg)
- {
- 	struct dpu_hw_blk_reg_map *c = &ctx->hw;
-+	u32 dsc_active = 0;
- 	u32 intf_active = 0;
+@@ -562,6 +562,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  	u32 dsc_active = 0;
  	u32 wb_active = 0;
+ 	u32 cwb_active = 0;
 +	u32 merge_3d_active = 0;
  	u32 mode_sel = 0;
  
  	/* CTL_TOP[31:28] carries group_id to collate CTL paths
-@@ -559,9 +561,11 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
- 		mode_sel |= BIT(17);
- 
-+	dsc_active = DPU_REG_READ(c, CTL_DSC_ACTIVE);
- 	intf_active = DPU_REG_READ(c, CTL_INTF_ACTIVE);
+@@ -578,6 +579,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  	wb_active = DPU_REG_READ(c, CTL_WB_ACTIVE);
+ 	cwb_active = DPU_REG_READ(c, CTL_CWB_ACTIVE);
  	dsc_active = DPU_REG_READ(c, CTL_DSC_ACTIVE);
 +	merge_3d_active = DPU_REG_READ(c, CTL_MERGE_3D_ACTIVE);
  
  	if (cfg->intf)
  		intf_active |= BIT(cfg->intf - INTF_0);
-@@ -569,6 +573,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 	if (cfg->wb)
- 		wb_active |= BIT(cfg->wb - WB_0);
+@@ -588,6 +590,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+ 	if (cfg->cwb)
+ 		cwb_active |= cfg->cwb;
  
 +	if (cfg->merge_3d)
 +		merge_3d_active |= BIT(cfg->merge_3d - MERGE_3D_0);
@@ -57,9 +49,9 @@ index 4893f10d6a58..3b3195d026b3 100644
  	if (cfg->dsc)
  		dsc_active |= cfg->dsc;
  
-@@ -576,13 +583,18 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 	DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
+@@ -596,13 +601,18 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  	DPU_REG_WRITE(c, CTL_WB_ACTIVE, wb_active);
+ 	DPU_REG_WRITE(c, CTL_CWB_ACTIVE, cwb_active);
  	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, dsc_active);
 +	DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE, merge_3d_active);
  
@@ -79,15 +71,15 @@ index 4893f10d6a58..3b3195d026b3 100644
  }
  
  static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
-@@ -623,6 +635,7 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+@@ -643,6 +653,7 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  {
  	struct dpu_hw_blk_reg_map *c = &ctx->hw;
  	u32 intf_active = 0;
 +	u32 intf_master = 0;
  	u32 wb_active = 0;
+ 	u32 cwb_active = 0;
  	u32 merge3d_active = 0;
- 	u32 dsc_active;
-@@ -649,6 +662,14 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+@@ -670,6 +681,14 @@ static void dpu_hw_ctl_reset_intf_cfg_v1(struct dpu_hw_ctl *ctx,
  		intf_active = DPU_REG_READ(c, CTL_INTF_ACTIVE);
  		intf_active &= ~BIT(cfg->intf - INTF_0);
  		DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
@@ -101,9 +93,9 @@ index 4893f10d6a58..3b3195d026b3 100644
 +		}
  	}
  
- 	if (cfg->wb) {
+ 	if (cfg->cwb) {
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-index 85c6c835cc87..e95989a2fdda 100644
+index 080a9550a0cc..cea23436fc80 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
 @@ -36,6 +36,7 @@ struct dpu_hw_stage_cfg {
@@ -114,7 +106,7 @@ index 85c6c835cc87..e95989a2fdda 100644
   * @mode_3d:               3d mux configuration
   * @merge_3d:              3d merge block used
   * @intf_mode_sel:         Interface mode, cmd / vid
-@@ -45,6 +46,7 @@ struct dpu_hw_stage_cfg {
+@@ -46,6 +47,7 @@ struct dpu_hw_stage_cfg {
   */
  struct dpu_hw_intf_cfg {
  	enum dpu_intf intf;
@@ -123,5 +115,5 @@ index 85c6c835cc87..e95989a2fdda 100644
  	enum dpu_3d_blend_mode mode_3d;
  	enum dpu_merge_3d merge_3d;
 -- 
-2.48.1
+2.34.1
 

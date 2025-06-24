@@ -1,7 +1,7 @@
-From 9de1f4cad3a1110ef8186cdf222daf7b6e1a59e5 Mon Sep 17 00:00:00 2001
+From 89bd8a9fcc25925d74ff0044616d166b2a5405c4 Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Sun, 14 Mar 2021 04:58:32 +0300
-Subject: [PATCH 24/56] drm/msm/dpu1: use one active CTL if it is available
+Subject: [PATCH 24/54] drm/msm/dpu1: use one active CTL if it is available
 
 Unlike previous generation, with newer ("active") CTLs it is possible to
 use just one CTL to handle both interfaces. And one has to use single
@@ -11,17 +11,17 @@ available.
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: map220v <map220v300@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    | 10 ++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         | 14 ++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |  1 +
- 4 files changed, 20 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 10 ++++++++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        | 20 ++++++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |  1 +
+ 4 files changed, 18 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index eca9c7d4ec6f..c999e53cc3ca 100644
+index 862e9e6bf0a5..6c989ec00579 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1312,13 +1312,19 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+@@ -1246,13 +1246,19 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
  			return;
  		}
  
@@ -42,7 +42,7 @@ index eca9c7d4ec6f..c999e53cc3ca 100644
  		phys->cached_mode = crtc_state->adjusted_mode;
  		if (phys->ops.atomic_mode_set)
  			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
-@@ -2879,4 +2885,4 @@ void dpu_encoder_phys_init(struct dpu_encoder_phys *phys_enc,
+@@ -2921,4 +2927,4 @@ void dpu_encoder_phys_init(struct dpu_encoder_phys *phys_enc,
  	atomic_set(&phys_enc->underrun_cnt, 0);
  
  	init_waitqueue_head(&phys_enc->pending_kickoff_wq);
@@ -62,7 +62,7 @@ index 4cea19e1a203..90cf0a355a8f 100644
  	u32 max_linewidth;
  	u32 pixel_ram_size;
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index 5baf9df702b8..cae2fa671b27 100644
+index 3efbba425ca6..3ca2e03b73ed 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
 @@ -148,6 +148,7 @@ int dpu_rm_init(struct drm_device *dev,
@@ -73,18 +73,26 @@ index 5baf9df702b8..cae2fa671b27 100644
  
  	for (i = 0; i < cat->dspp_count; i++) {
  		struct dpu_hw_dspp *hw;
-@@ -381,10 +382,15 @@ static int _dpu_rm_reserve_ctls(
+@@ -434,20 +435,15 @@ static int _dpu_rm_reserve_ctls(
  	int i = 0, j, num_ctls;
  	bool needs_split_display;
  
--	/* each hw_intf needs its own hw_ctrl to program its control path */
--	num_ctls = top->num_intf;
+-	/*
+-	 * For non-CWB mode, each hw_intf needs its own hw_ctl to program its
+-	 * control path.
+-	 *
+-	 * Hardcode num_ctls to 1 if CWB is enabled because in CWB, both the
+-	 * writeback and real-time encoders must be driven by the same control
+-	 * path
+-	 */
+-	if (top->cwb_enabled)
 +	if (rm->has_active_ctls) {
-+		num_ctls = 1;
+ 		num_ctls = 1;
+-	else
 +		needs_split_display = false;
 +	} else {
 +		/* each hw_intf needs its own hw_ctrl to program its control path */
-+		num_ctls = top->num_intf;
+ 		num_ctls = top->num_intf;
  
 -	needs_split_display = _dpu_rm_needs_split_display(top);
 +		needs_split_display = _dpu_rm_needs_split_display(top);
@@ -92,7 +100,7 @@ index 5baf9df702b8..cae2fa671b27 100644
  
  	for (j = 0; j < ARRAY_SIZE(rm->ctl_blks); j++) {
  		const struct dpu_hw_ctl *ctl;
-@@ -402,7 +408,7 @@ static int _dpu_rm_reserve_ctls(
+@@ -465,7 +461,7 @@ static int _dpu_rm_reserve_ctls(
  
  		DPU_DEBUG("ctl %d caps 0x%lX\n", j + CTL_0, features);
  
@@ -102,7 +110,7 @@ index 5baf9df702b8..cae2fa671b27 100644
  
  		ctl_idx[i] = j;
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-index 99bd594ee0d1..5e7c4f756c6a 100644
+index a19dbdb1b6f4..500d3f622302 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
 @@ -37,6 +37,7 @@ struct dpu_rm {
@@ -114,5 +122,5 @@ index 99bd594ee0d1..5e7c4f756c6a 100644
  
  struct dpu_rm_sspp_requirements {
 -- 
-2.48.1
+2.34.1
 

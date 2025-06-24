@@ -1,17 +1,17 @@
-From 0ff66811da28a2d189afb89f35500cf41d9e63df Mon Sep 17 00:00:00 2001
+From f0bb8958585b2f5b38a5040359f057e3457b9516 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Wed, 3 Apr 2024 23:03:35 +0800
-Subject: [PATCH 43/56] of: property: fix remote-endpoint parse
+Subject: [PATCH 41/54] of: property: fix remote-endpoint parse
 
 ---
  drivers/of/property.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 208d922cc24c..554b5fd4c408 100644
+index c1feb631e383..cb93e8b732dd 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1452,7 +1452,7 @@ static struct device_node *parse_remote_endpoint(struct device_node *np,
+@@ -1485,7 +1485,7 @@ static struct device_node *parse_remote_endpoint(struct device_node *np,
  	if (index > 0 || strcmp(prop_name, "remote-endpoint"))
  		return NULL;
  
@@ -21,5 +21,5 @@ index 208d922cc24c..554b5fd4c408 100644
  
  static const struct supplier_bindings of_supplier_bindings[] = {
 -- 
-2.48.1
+2.34.1
 

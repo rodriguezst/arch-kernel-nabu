@@ -1,7 +1,7 @@
-From c90c7bf6962ce40123cc850f78e5ed57e3f84a31 Mon Sep 17 00:00:00 2001
+From bb77d82eb946366ff3d94c2cf773c4c118bfc49e Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sat, 13 Aug 2022 12:30:38 +0300
-Subject: [PATCH 01/56] SM8150: Add uart13 node
+Subject: [PATCH 01/54] SM8150: Add uart13 node
 
 ---
  arch/arm64/boot/dts/qcom/sm8150.dtsi | 18 ++++++++++++++++++
@@ -44,5 +44,5 @@ index 4dbda54b47a5..4d06ac3139e7 100644
  				pins = "gpio47", "gpio48";
  				function = "qup14";
 -- 
-2.48.1
+2.34.1
 

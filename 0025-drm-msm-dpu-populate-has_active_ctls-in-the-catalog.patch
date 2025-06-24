@@ -1,7 +1,7 @@
-From aaf68f010381790931a6da5f3004d74b92b15b4d Mon Sep 17 00:00:00 2001
+From e25f0c0957a5016725856370d11d140b8ac241af Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Thu, 11 May 2023 18:44:50 +0300
-Subject: [PATCH 25/56] drm/msm/dpu: populate has_active_ctls in the catalog
+Subject: [PATCH 25/54] drm/msm/dpu: populate has_active_ctls in the catalog
 
 Set the has_active_ctls for all the platforms which need this bit.
 
@@ -22,7 +22,7 @@ Signed-off-by: map220v <map220v300@gmail.com>
  11 files changed, 11 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-index 36cc9dbc00b5..91d11ba1c79a 100644
+index 8e23dbfeef35..72b326d361d6 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sm8150_dpu_caps = {
@@ -34,7 +34,7 @@ index 36cc9dbc00b5..91d11ba1c79a 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  	.max_hdeci_exp = MAX_HORZ_DECIMATION,
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-index e8eacdb47967..967984744024 100644
+index e736eb73a7e6..bdd5ed8d371f 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sc8180x_dpu_caps = {
@@ -46,7 +46,7 @@ index e8eacdb47967..967984744024 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  	.max_hdeci_exp = MAX_HORZ_DECIMATION,
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-index e8916ae826a6..138bdc610c73 100644
+index 47e01c3c242f..6a9f613f0c0c 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sm8250_dpu_caps = {
@@ -58,7 +58,7 @@ index e8916ae826a6..138bdc610c73 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-index 7382ebb6e5b2..6ec4f51cfca0 100644
+index 040c94c0bb66..c09decffcbfa 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
 @@ -12,6 +12,7 @@ static const struct dpu_caps sc7180_dpu_caps = {
@@ -94,7 +94,7 @@ index 3cbb2fe8aba2..80978a880503 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-index f7c08e89c882..078da1bc610a 100644
+index 0c860e804cab..2699acb06998 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sm8350_dpu_caps = {
@@ -106,7 +106,7 @@ index f7c08e89c882..078da1bc610a 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-index 2f153e0b5c6a..02dd7b04dd17 100644
+index e9625c48c567..85495c152158 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
 @@ -12,6 +12,7 @@ static const struct dpu_caps sc7280_dpu_caps = {
@@ -118,7 +118,7 @@ index 2f153e0b5c6a..02dd7b04dd17 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-index 0d143e390eca..76d2aa94dc6b 100644
+index fcee1c3665f8..9b62d9e0e608 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sc8280xp_dpu_caps = {
@@ -130,7 +130,7 @@ index 0d143e390eca..76d2aa94dc6b 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index 08742472f9cc..441dd526797b 100644
+index 19b2ee8bbd5f..c000caea1d37 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sm8450_dpu_caps = {
@@ -142,7 +142,7 @@ index 08742472f9cc..441dd526797b 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-index 4d3787fceb72..2eb9d7d9f24e 100644
+index 24f988465bf6..8780eb89369b 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
 @@ -14,6 +14,7 @@ static const struct dpu_caps sm8550_dpu_caps = {
@@ -154,5 +154,5 @@ index 4d3787fceb72..2eb9d7d9f24e 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 -- 
-2.48.1
+2.34.1
 

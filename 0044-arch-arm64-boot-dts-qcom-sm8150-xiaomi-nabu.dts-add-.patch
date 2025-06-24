@@ -1,7 +1,7 @@
-From eac9e1d756c5fc3bea0f9a196f4c27db13d49c5c Mon Sep 17 00:00:00 2001
+From fcc4f76479ab7aff96d1a527e353cb5cc89ca273 Mon Sep 17 00:00:00 2001
 From: Pan Ortiz <panjeoc@proton.me>
 Date: Wed, 13 Nov 2024 13:12:14 +0000
-Subject: [PATCH 46/56] arch: arm64: boot: dts: qcom: sm8150-xiaomi-nabu.dts:
+Subject: [PATCH 44/54] arch: arm64: boot: dts: qcom: sm8150-xiaomi-nabu.dts:
  add slpi remoteproc to nabu dts This is needed to power the Sensors Low Power
  Island
 
@@ -34,5 +34,5 @@ index 0c23073e6f5c..5d9446b19d27 100644
  	compatible = "qcom,sm8150-sndcard";
  	pinctrl-0 = <&quat_tdm_active
 -- 
-2.48.1
+2.34.1
 

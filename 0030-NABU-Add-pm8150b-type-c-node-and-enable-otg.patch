@@ -1,7 +1,7 @@
-From ca6b9716b8ff63fe8012814553d0676dd93b90e4 Mon Sep 17 00:00:00 2001
+From 8fe34134035f5d5a57a7c6b6b14f8c52515c9cf2 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 9 Jan 2024 11:18:40 +0000
-Subject: [PATCH 31/56] NABU: Add pm8150b type-c node and enable otg
+Subject: [PATCH 30/54] NABU: Add pm8150b type-c node and enable otg
 
 ---
  .../boot/dts/qcom/sm8150-xiaomi-nabu.dts      | 51 ++++++++++++++++++-
@@ -88,5 +88,5 @@ index 17f7aeb5e99f..ee6dfcf5b4bd 100644
  
  &usb_1_hsphy {
 -- 
-2.48.1
+2.34.1
 

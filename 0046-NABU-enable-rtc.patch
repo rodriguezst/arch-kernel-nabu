@@ -1,13 +1,12 @@
-From f5c088778af526b5269dde8a36aa365cd95825b0 Mon Sep 17 00:00:00 2001
+From b41f5b7ca3d86b4e8206da9f5affa05eff74ce35 Mon Sep 17 00:00:00 2001
 From: Catmengi <138163939+catmengi@users.noreply.github.com>
 Date: Sat, 23 Nov 2024 21:56:39 +0000
-Subject: [PATCH 48/56] NABU: enable rtc
+Subject: [PATCH 46/54] NABU: enable rtc
 
 ---
  arch/arm64/boot/dts/qcom/pm8150.dtsi            | 10 +++++++++-
  arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts | 12 ++++++++++++
- drivers/rtc/rtc-pm8xxx.c                        |  1 +
- 3 files changed, 22 insertions(+), 1 deletion(-)
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/pm8150.dtsi b/arch/arm64/boot/dts/qcom/pm8150.dtsi
 index d2568686a098..c3411b308e3d 100644
@@ -56,18 +55,6 @@ index 5d9446b19d27..dbf673b78014 100644
 +		reg = <0xbc 0x4>;
 +	};
 +};
-diff --git a/drivers/rtc/rtc-pm8xxx.c b/drivers/rtc/rtc-pm8xxx.c
-index b2518aea4218..3cb73941bfdc 100644
---- a/drivers/rtc/rtc-pm8xxx.c
-+++ b/drivers/rtc/rtc-pm8xxx.c
-@@ -533,6 +533,7 @@ static int pm8xxx_rtc_probe(struct platform_device *pdev)
- static void pm8xxx_remove(struct platform_device *pdev)
- {
- 	dev_pm_clear_wake_irq(&pdev->dev);
-+	return;
- }
- 
- static struct platform_driver pm8xxx_rtc_driver = {
 -- 
-2.48.1
+2.34.1
 

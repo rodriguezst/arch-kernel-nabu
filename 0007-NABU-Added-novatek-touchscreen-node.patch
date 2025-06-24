@@ -1,7 +1,7 @@
-From 389ea21dfc310f66d639da0b951307a421d4218f Mon Sep 17 00:00:00 2001
+From f1088c429dfb6c24c3e9a3f85925749b04818a2c Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sun, 14 Aug 2022 14:35:59 +0300
-Subject: [PATCH 07/56] NABU: Added novatek touchscreen node
+Subject: [PATCH 07/54] NABU: Added novatek touchscreen node
 
 ---
  .../boot/dts/qcom/sm8150-xiaomi-nabu.dts      | 21 +++++++++++++++++++
@@ -40,5 +40,5 @@ index f07607d79416..f4a8fb41a057 100644
  	gpio-reserved-ranges = <126 4>;
  
 -- 
-2.48.1
+2.34.1
 

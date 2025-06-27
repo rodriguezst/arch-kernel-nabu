@@ -1,4 +1,4 @@
-From 97ebf63966168534e79eda0326814612b1703fe5 Mon Sep 17 00:00:00 2001
+From ba3ed8afc1138307bd1cacded919b29980345d71 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:37:44 +0300
 Subject: [PATCH 19/54] ASoC: qcom: SM8150: Add slimbus audio support Also
@@ -9,7 +9,7 @@ Subject: [PATCH 19/54] ASoC: qcom: SM8150: Add slimbus audio support Also
  1 file changed, 236 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/qcom/sm8150.c b/sound/soc/qcom/sm8150.c
-index 443d684e8618..192714ca1976 100644
+index 66a98219ff99..e56b42d79dc4 100644
 --- a/sound/soc/qcom/sm8150.c
 +++ b/sound/soc/qcom/sm8150.c
 @@ -6,18 +6,30 @@
@@ -337,5 +337,5 @@ index 443d684e8618..192714ca1976 100644
  	return devm_snd_soc_register_card(dev, card);
  }
 -- 
-2.34.1
+2.49.0
 

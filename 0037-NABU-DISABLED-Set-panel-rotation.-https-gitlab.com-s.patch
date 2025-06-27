@@ -1,4 +1,4 @@
-From 4101c35c1182bfe56d7e17c89cd78485aaf07be4 Mon Sep 17 00:00:00 2001
+From 5d8601e20d7fe1a9421133872ca34c526f0fbce2 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:18:12 +0000
 Subject: [PATCH 37/54] NABU: [DISABLED] Set panel rotation.
@@ -21,5 +21,5 @@ index 3f39e0b3e261..0b5d92209369 100644
  		ports {
  			#address-cells = <1>;
 -- 
-2.34.1
+2.49.0
 

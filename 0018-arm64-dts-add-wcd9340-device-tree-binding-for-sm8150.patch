@@ -1,4 +1,4 @@
-From 177083d1e98bfaab438441511873ab0d1708bdaf Mon Sep 17 00:00:00 2001
+From 4e9b5ab8e5bbe285cb61807dc1b6bdad09493ce8 Mon Sep 17 00:00:00 2001
 From: Degdag Mohamed <degdagmohamed@gmail.com>
 Date: Thu, 27 Jul 2023 01:24:02 +0100
 Subject: [PATCH 18/54] arm64:dts : add wcd9340 device tree binding for sm8150
@@ -103,5 +103,5 @@ index 000000000000..cde7e55bf849
 +	};
 +};
 -- 
-2.34.1
+2.49.0
 

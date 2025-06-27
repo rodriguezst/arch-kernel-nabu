@@ -1,4 +1,4 @@
-From a74b0e10ded0a251e155bc65a81b1033bd53441e Mon Sep 17 00:00:00 2001
+From f9c38a61e6a228986a5ca6de954f6160737a0efa Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Sun, 14 Mar 2021 04:52:34 +0300
 Subject: [PATCH 23/54] drm/msm/dpu1: improve support for active CTLs
@@ -115,5 +115,5 @@ index 080a9550a0cc..cea23436fc80 100644
  	enum dpu_3d_blend_mode mode_3d;
  	enum dpu_merge_3d merge_3d;
 -- 
-2.34.1
+2.49.0
 

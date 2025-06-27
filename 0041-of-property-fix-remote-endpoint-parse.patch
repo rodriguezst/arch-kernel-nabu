@@ -1,4 +1,4 @@
-From f0bb8958585b2f5b38a5040359f057e3457b9516 Mon Sep 17 00:00:00 2001
+From 6a5e4fae7005a4dd230f69c92249c00e694576ed Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Wed, 3 Apr 2024 23:03:35 +0800
 Subject: [PATCH 41/54] of: property: fix remote-endpoint parse
@@ -21,5 +21,5 @@ index c1feb631e383..cb93e8b732dd 100644
  
  static const struct supplier_bindings of_supplier_bindings[] = {
 -- 
-2.34.1
+2.49.0
 

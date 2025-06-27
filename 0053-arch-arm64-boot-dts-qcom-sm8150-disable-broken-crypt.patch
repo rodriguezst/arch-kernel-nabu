@@ -1,4 +1,4 @@
-From 4509d0e43506793bbf78b3fe22c50af2db713a78 Mon Sep 17 00:00:00 2001
+From fa7e8988fa39f33235675ad7f19bf0b53324952c Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Sat, 11 Jan 2025 23:55:24 +0100
 Subject: [PATCH 53/54] arch: arm64: boot: dts: qcom: sm8150 disable broken
@@ -21,5 +21,5 @@ index ae9d1eb9662c..6a97e0606ae0 100644
  
  		tcsr_mutex: hwlock@1f40000 {
 -- 
-2.34.1
+2.49.0
 

@@ -1,4 +1,4 @@
-From f9e3a813e1c60faf66f64b2c201b189717b502a3 Mon Sep 17 00:00:00 2001
+From 5c724b79d4389fd80186d443e31811e5fcd1d8ce Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 28 Jul 2023 00:37:39 +0300
 Subject: [PATCH 11/54] ASoC: qcom: SM8150: Add machine driver
@@ -55,7 +55,7 @@ index 16db7b53ddac..13e2029584b3 100644
  obj-$(CONFIG_SND_SOC_QCOM_SDW) += snd-soc-qcom-sdw.o
 diff --git a/sound/soc/qcom/sm8150.c b/sound/soc/qcom/sm8150.c
 new file mode 100644
-index 000000000000..443d684e8618
+index 000000000000..66a98219ff99
 --- /dev/null
 +++ b/sound/soc/qcom/sm8150.c
 @@ -0,0 +1,247 @@
@@ -308,5 +308,5 @@ index 000000000000..443d684e8618
 +MODULE_LICENSE("GPL v2");
 \ No newline at end of file
 -- 
-2.34.1
+2.49.0
 

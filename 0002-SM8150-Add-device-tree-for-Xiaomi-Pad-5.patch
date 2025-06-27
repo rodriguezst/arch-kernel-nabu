@@ -1,4 +1,4 @@
-From 73151b22d9b785ed278a5254e28cae034a22ad37 Mon Sep 17 00:00:00 2001
+From 75b40b34a97bb8d307c86a803da48746d7ad415f Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sat, 13 Aug 2022 15:50:40 +0300
 Subject: [PATCH 02/54] SM8150: Add device tree for Xiaomi Pad 5
@@ -619,5 +619,5 @@ index 000000000000..f07607d79416
 +	vdd-3.3-ch0-supply = <&vreg_l11c_3p3>;
 +};
 -- 
-2.34.1
+2.49.0
 

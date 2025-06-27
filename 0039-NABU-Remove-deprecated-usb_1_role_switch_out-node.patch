@@ -1,4 +1,4 @@
-From a78dd1481df0b090f57b08f0c51f94229448c27e Mon Sep 17 00:00:00 2001
+From a8c865d1eabdb38bcf3cac85904d240f4a0073ef Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:29:36 +0000
 Subject: [PATCH 39/54] NABU: Remove deprecated usb_1_role_switch_out node.
@@ -23,5 +23,5 @@ index b1dc96081454..077a1d37171e 100644
  	/* USB 2.0 only */
  	qcom,select-utmi-as-pipe-clk;
 -- 
-2.34.1
+2.49.0
 

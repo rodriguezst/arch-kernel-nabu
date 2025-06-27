@@ -1,4 +1,4 @@
-From 20ef75941d6c9f034d28db767f0d73d869b441ca Mon Sep 17 00:00:00 2001
+From 8e051366a15a03370f88741bc4ec0857b9007976 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 9 Jan 2024 11:58:41 +0000
 Subject: [PATCH 31/54] NABU: Add fsa4480 node
@@ -54,5 +54,5 @@ index ee6dfcf5b4bd..8ad0e42cea72 100644
  	};
  };
 -- 
-2.34.1
+2.49.0
 

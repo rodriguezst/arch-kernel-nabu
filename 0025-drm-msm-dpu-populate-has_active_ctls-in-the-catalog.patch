@@ -1,4 +1,4 @@
-From e25f0c0957a5016725856370d11d140b8ac241af Mon Sep 17 00:00:00 2001
+From 5c4ac4fd99dd11df6696c57e1c646256cff52c58 Mon Sep 17 00:00:00 2001
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Date: Thu, 11 May 2023 18:44:50 +0300
 Subject: [PATCH 25/54] drm/msm/dpu: populate has_active_ctls in the catalog
@@ -154,5 +154,5 @@ index 24f988465bf6..8780eb89369b 100644
  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
  };
 -- 
-2.34.1
+2.49.0
 

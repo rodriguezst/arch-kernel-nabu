@@ -1,4 +1,4 @@
-From ae247c1f3e619d5454338ee565ba2a278b337fbc Mon Sep 17 00:00:00 2001
+From 3daa7240ed2e7f2a0be8ace6e28540bcc5bc0e51 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Thu, 4 Aug 2022 13:26:53 +0800
 Subject: [PATCH 03/54] drm: Add drm notifier support
@@ -134,5 +134,5 @@ index 000000000000..fd0e976559b8
 +
 +#endif /* _DRM_NOTIFIER_H */
 -- 
-2.34.1
+2.49.0
 

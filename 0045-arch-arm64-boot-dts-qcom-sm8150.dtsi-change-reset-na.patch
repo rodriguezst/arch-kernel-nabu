@@ -1,4 +1,4 @@
-From ba707eba733b75d7b69c4aa8f5fd6afc56d1403c Mon Sep 17 00:00:00 2001
+From f2ae7dc35711bcd28200533c97102349506735e5 Mon Sep 17 00:00:00 2001
 From: Catmengi <138163939+catmengi@users.noreply.github.com>
 Date: Tue, 19 Nov 2024 09:48:28 +0000
 Subject: [PATCH 45/54] arch: arm64: boot: dts: qcom: sm8150.dtsi: change reset

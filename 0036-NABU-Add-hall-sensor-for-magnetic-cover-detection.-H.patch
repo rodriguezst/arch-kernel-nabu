@@ -1,4 +1,4 @@
-From c48f59f0fad2be4d2f78014912e864d6aab07915 Mon Sep 17 00:00:00 2001
+From d10a18184710f5aff59117471b2b8668f68838ed Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:16:21 +0000
 Subject: [PATCH 36/54] NABU: Add hall sensor for magnetic cover detection.

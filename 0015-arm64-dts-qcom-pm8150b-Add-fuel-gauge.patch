@@ -1,4 +1,4 @@
-From 0a957718da2a4a4aef236b29d5446af5fab3e581 Mon Sep 17 00:00:00 2001
+From bf8ac4269824dff8e7a5ed2b98dcf241a02aafbe Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 2 Aug 2023 19:17:45 +0300
 Subject: [PATCH 15/54] arm64: dts: qcom: pm8150b: Add fuel gauge

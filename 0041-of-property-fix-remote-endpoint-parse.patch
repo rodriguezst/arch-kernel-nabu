@@ -1,4 +1,4 @@
-From 6a5e4fae7005a4dd230f69c92249c00e694576ed Mon Sep 17 00:00:00 2001
+From 91fa4fd879e7b65a52fbd212b8dfd5442c0438da Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Wed, 3 Apr 2024 23:03:35 +0800
 Subject: [PATCH 41/54] of: property: fix remote-endpoint parse

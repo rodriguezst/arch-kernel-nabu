@@ -1,4 +1,4 @@
-From 5317758d042a174e5495f0a8c09d8fd5c4d93e0d Mon Sep 17 00:00:00 2001
+From 13510c9e69432bdb4918aa046ea6907d8a632241 Mon Sep 17 00:00:00 2001
 From: Pan Ortiz <panjeoc@proton.me>
 Date: Fri, 11 Oct 2024 16:57:15 +0000
 Subject: [PATCH 42/54] drivers: gpu: drm: drm_notifier.c: add #include

@@ -1,4 +1,4 @@
-From 2bf0f31e0ececf23fed0185a6b016375a927e506 Mon Sep 17 00:00:00 2001
+From 33409010f141825ce23d405845e90141911de9cb Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 2 Aug 2023 19:15:53 +0300
 Subject: [PATCH 14/54] power: qcom_fg: Add initial pm8150b support

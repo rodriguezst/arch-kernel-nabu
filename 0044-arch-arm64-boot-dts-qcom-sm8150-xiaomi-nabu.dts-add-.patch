@@ -1,4 +1,4 @@
-From bb6c03f61dbfb6fa7cb24f4276a5470ffe2ecbe7 Mon Sep 17 00:00:00 2001
+From 12f980f42f6d95653eb5aed308ccfa273d32b851 Mon Sep 17 00:00:00 2001
 From: Pan Ortiz <panjeoc@proton.me>
 Date: Wed, 13 Nov 2024 13:12:14 +0000
 Subject: [PATCH 44/54] arch: arm64: boot: dts: qcom: sm8150-xiaomi-nabu.dts:

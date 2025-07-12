@@ -1,4 +1,4 @@
-From 72026b76d63d53371ff99cb5bdbf75d84ea2b34f Mon Sep 17 00:00:00 2001
+From 96a1bf997320361704ff72ba5e62041d1a1fcaa4 Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Thu, 14 Nov 2024 22:57:02 +0100
 Subject: [PATCH 51/54] nt36xxx: add pen input resolution

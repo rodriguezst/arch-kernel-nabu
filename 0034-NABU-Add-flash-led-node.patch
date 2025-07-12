@@ -1,4 +1,4 @@
-From 35d0183c44315d87e843f491712cb4f9b5d92664 Mon Sep 17 00:00:00 2001
+From c4eacdbbbe92cf2bd2b5aa1edc77e733d5f356f2 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 10 Jan 2024 19:41:45 +0000
 Subject: [PATCH 34/54] NABU: Add flash led node.

@@ -1,4 +1,4 @@
-From e2cbd9fcda58ef60b11771571545ff1be320a24e Mon Sep 17 00:00:00 2001
+From c158a3938b272ff1c862b40a2ad50f6bd6392a87 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 9 Jan 2024 16:36:30 +0000
 Subject: [PATCH 32/54] NABU: Enable secondary usb and keyboard MCU.

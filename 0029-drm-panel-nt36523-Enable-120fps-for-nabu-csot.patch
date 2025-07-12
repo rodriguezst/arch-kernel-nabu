@@ -1,4 +1,4 @@
-From dbfd9026a3167b6468b80792ed6d6ae75736ba02 Mon Sep 17 00:00:00 2001
+From e472c726ee399d55b2e9c195d98f964bf9ded319 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 4 Jan 2024 13:01:31 +0000
 Subject: [PATCH 29/54] drm/panel: nt36523: Enable 120fps for nabu csot

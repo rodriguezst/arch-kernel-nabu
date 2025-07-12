@@ -1,4 +1,4 @@
-From 04a3e9eb616b15b339d4408de3d7ea284fd7a68d Mon Sep 17 00:00:00 2001
+From a5c76527f65b5d34103ab9aebc8fa30dd257e74b Mon Sep 17 00:00:00 2001
 From: Marijn Suijten <marijn.suijten@somainline.org>
 Date: Mon, 19 Jun 2023 22:23:05 +0200
 Subject: [PATCH 40/54] drm/msm/dpu: Drop BIT(DPU_CTL_SPLIT_DISPLAY) from

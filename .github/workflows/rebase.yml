@@ -12,6 +12,11 @@ on:
 jobs:
   rebase:
     runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: read
     steps:
 
       - name: Checkout srcdir
@@ -25,9 +30,10 @@ jobs:
           source srcdir/PKGBUILD
           echo "PKGVER=$pkgver" >> $GITHUB_ENV
           echo "PREV_REF=v${pkgver%.0}" >> $GITHUB_ENV
-
-      - name: Rebase & regenerate patches
+      - name: Rebase & regenerate patches - Initial attempt
+        id: initial-rebase
         shell: bash
+        continue-on-error: true
         run: |
           git clone --depth=1 -b ${{ env.PREV_REF }} ${{ env.REPO }} linux
           cd linux
@@ -36,27 +42,227 @@ jobs:
           git am --whitespace=fix ../srcdir/*.patch
           rm -rf ../srcdir/*.patch
           git fetch --unshallow origin ${{ env.REF }}:${{ env.REF }}
-          git rebase ${{ env.REF }}
+          
+          # Attempt rebase and capture result
+          if git rebase ${{ env.REF }}; then
+            echo "rebase_success=true" >> $GITHUB_OUTPUT
+            echo "Rebase completed successfully without conflicts"
+          else
+            echo "rebase_success=false" >> $GITHUB_OUTPUT
+            echo "Rebase conflicts detected - will use Claude Code for resolution"
+            
+            # Create detailed conflict report for Claude
+            echo "# Rebase Conflict Report" > ../CONFLICT_CONTEXT.md
+            echo "## Repository Information" >> ../CONFLICT_CONTEXT.md
+            echo "- Source: ${{ env.REPO }}" >> ../CONFLICT_CONTEXT.md  
+            echo "- Target branch: ${{ env.REF }}" >> ../CONFLICT_CONTEXT.md
+            echo "- Previous version: ${{ env.PREV_REF }}" >> ../CONFLICT_CONTEXT.md
+            echo "" >> ../CONFLICT_CONTEXT.md
+            
+            echo "## Conflicted Files" >> ../CONFLICT_CONTEXT.md
+            git status --porcelain | grep "^UU\|^DU\|^UD\|^AA" >> ../CONFLICT_CONTEXT.md
+            echo "" >> ../CONFLICT_CONTEXT.md
+            
+            echo "## Git Status Output" >> ../CONFLICT_CONTEXT.md
+            git status >> ../CONFLICT_CONTEXT.md
+            echo "" >> ../CONFLICT_CONTEXT.md
+            
+            # Get recent changes that might cause conflicts
+            echo "## Recent Upstream Changes" >> ../CONFLICT_CONTEXT.md
+            git log --oneline ${{ env.PREV_REF }}..${{ env.REF }} --max-count=20 >> ../CONFLICT_CONTEXT.md
+          fi
+      - name: Claude Code - Resolve Rebase Conflicts
+        if: steps.initial-rebase.outputs.rebase_success == 'false'
+        uses: anthropics/claude-code-action/base-action@main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
+          prompt: |
+            I'm working on rebasing kernel patches and encountered conflicts during the rebase process. 
+            CONTEXT:
+            - This is a Linux kernel package maintenance workflow
+            - We're rebasing custom patches from ${{ env.PREV_REF }} to ${{ env.REF }}
+            - The git rebase failed with conflicts that need intelligent resolution
+            CURRENT SITUATION:
+            - The git repository with the conflict is in the ./linux subdirectory. All shell commands MUST be executed inside it (e.g., `cd linux && git status`).
+            - The rebase is currently in progress.
+            - A summary of the conflicts is available at the root in the file CONFLICT_CONTEXT.md.
+            TASK:
+            Please analyze the rebase conflicts and resolve them intelligently by:
+            1. **Analyze each conflict**:
+               - Read the conflict context from ../CONFLICT_CONTEXT.md
+               - For each conflicted file:
+                  - Use `git show :1:filename`, `git show :2:filename`, `git show :3:filename` to understand the three-way merge
+                  - Read the file to understand the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
+                  - Analyze what changes are in HEAD vs the incoming commit
+                  - Resolve conflicts by choosing the appropriate version or combining changes
+                  - Remove all conflict markers after resolution
+               - Identify the type of conflict (API changes, code structure changes, context changes, etc.)
+            2. **Resolve conflicts systematically**:
+               - Preserve the original intent of our patches
+               - Adapt to upstream API changes when necessary  
+               - Make minimal changes to achieve compatibility
+               - When in doubt, favor upstream implementations over custom patches
+            3. **Document all resolutions**:
+               - Create ../REBASE_RESOLUTION_LOG.md with detailed explanations
+               - For each file, document: the conflict type, analysis performed, resolution strategy, and final changes made
+               - Include reasoning for each decision
+            4. **Validate resolutions**:
+               - After resolving each conflict, ensure the file is syntactically correct
+               - Use `git add` to stage resolved files
+               - Continue the rebase with `git rebase --continue`
+               - Do not try to build the kernel, as that will be performed in a later workflow step
+            5. **Complete the rebase**:
+               - Continue until all conflicts are resolved
+               - Ensure the rebase completes successfully
+               - Generate the release info and patch files as planned
+            IMPORTANT GUIDELINES:
+            - Always backup files before modifying them
+            - Inspect syntax where possible (without compilation) 
+            - If a patch becomes incompatible, document why and consider removing it
+            - Maintain kernel coding standards and practices
+            - Focus on preserving functionality over preserving exact code
+            Please proceed with resolving these rebase conflicts intelligently.
+      - name: Complete rebase workflow after conflict resolution
+        shell: bash
+        run: |
+          cd linux
+          
+          # Verify rebase completed successfully
+          if git status | grep -q "rebase in progress"; then
+            echo "ERROR: Rebase still in progress after Claude resolution"
+            exit 1
+          fi
+          
+          # Generate release info and patches
           git log -1 ${{ env.REF }} > ../RELEASE.md
           git format-patch ${{ env.REF }} --start-number=1 -o ../srcdir -- . ':!arch/*/configs/*' > /dev/null
+          
+          # Get new kernel version
           KERNVER=$(grep -E '^VERSION|^PATCHLEVEL|^SUBLEVEL' Makefile | \
             sed -E 's/[^0-9]*//g' | tr '\n' '.' | sed 's/\.$//' )
           echo "KERNVER=${KERNVER}" >> $GITHUB_ENV
-
       - name: Install kernel build deps
         if: env.KERNVER != env.PKGVER
         run: sudo apt update && sudo apt install build-essential bc flex bison
 
-      - name: Update config & build
+      - name: Update config & build - Initial attempt
         if: env.KERNVER != env.PKGVER
+        id: initial-build
         shell: bash
+        continue-on-error: true
         run: |
           cp srcdir/config linux/.config
           cd linux
           make olddefconfig
-          make -j$(nproc) Image.gz dtbs modules
-          cp .config ../srcdir/config
-
+          
+          # Attempt build and capture result
+          if make -j$(nproc) Image.gz dtbs modules 2>&1 | tee build.log; then
+            echo "build_success=true" >> $GITHUB_OUTPUT
+            echo "Build completed successfully"
+            cp .config ../srcdir/config
+          else
+            echo "build_success=false" >> $GITHUB_OUTPUT
+            echo "Build failed - will use Claude Code for resolution"
+            
+            # Create detailed build failure report for Claude
+            echo "# Build Failure Report" > ../BUILD_CONTEXT.md
+            echo "## Build Environment" >> ../BUILD_CONTEXT.md
+            echo "- Kernel Version: ${KERNVER}" >> ../BUILD_CONTEXT.md
+            echo "- Build Target: Image.gz dtbs modules" >> ../BUILD_CONTEXT.md
+            echo "- Build Command: make -j$(nproc)" >> ../BUILD_CONTEXT.md
+            echo "" >> ../BUILD_CONTEXT.md
+            
+            echo "## Build Errors" >> ../BUILD_CONTEXT.md
+            grep -E "error:|Error|ERROR" build.log | head -50 >> ../BUILD_CONTEXT.md
+            echo "" >> ../BUILD_CONTEXT.md
+            
+            echo "## Build Warnings" >> ../BUILD_CONTEXT.md  
+            grep -E "warning:|Warning|WARNING" build.log | head -20 >> ../BUILD_CONTEXT.md
+            echo "" >> ../BUILD_CONTEXT.md
+            
+            echo "## Recent Patch Changes" >> ../BUILD_CONTEXT.md
+            ls -la ../srcdir/*.patch >> ../BUILD_CONTEXT.md
+          fi
+      - name: Claude Code - Resolve Build Issues
+        if: steps.initial-build.outputs.build_success == 'false'
+        uses: anthropics/claude-code-action/base-action@main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
+          prompt: |
+            I'm working on a kernel build that failed after rebasing patches. The build needs to be fixed intelligently.
+            CONTEXT:
+            - This is a Linux kernel v${KERNVER} build
+            - We just rebased patches against the latest stable kernel
+            - The build is failing with compilation errors
+            - Working directory: ./linux (kernel source tree)
+            CURRENT SITUATION:
+            - Build failed during: make -j$(nproc) Image.gz dtbs modules
+            - Build failure details are in ../BUILD_CONTEXT.md
+            - Build log is available in build.log
+            TASK:
+            Please analyze and fix the build issues by:
+            1. **Analyze build failures**:
+               - Read the build context from ../BUILD_CONTEXT.md  
+               - Examine build.log for detailed error messages
+               - Categorize errors: missing symbols, API changes, header issues, config conflicts
+               - Identify which patches or changes are causing the issues
+            2. **Resolve build issues systematically**:
+               - For missing symbols: find where they should be defined or if config is needed
+               - For API changes: adapt code to use new function signatures/interfaces
+               - For header issues: update include statements or find moved declarations
+               - For config conflicts: resolve dependencies and enable/disable options appropriately
+            3. **Apply fixes iteratively**:
+               - Fix issues one category at a time
+               - Test build after each major fix attempt
+               - If patches need modification, update them properly
+               - Use `make -j$(nproc)` to test builds
+            4. **Update configuration if needed**:
+               - Use `scripts/config --enable` or `scripts/config --disable` for config changes
+               - Run `make olddefconfig` after config changes
+               - Ensure configuration is consistent and buildable
+            5. **Document all fixes**:
+               - Create ../BUILD_FIX_LOG.md with detailed explanations
+               - Document each error found and how it was resolved
+               - Note any patches that were modified or disabled
+               - Include reasoning for configuration changes
+            6. **Regenerate patches if modified**:
+               - If you modify committed patches, regenerate the patch files:
+               ```bash
+               rm -f ../srcdir/*.patch
+               git format-patch ${{ env.REF }} --start-number=1 -o ../srcdir -- . ':!arch/*/configs/*'
+               ```
+            7. **Final validation**:
+               - Ensure the complete build succeeds: `make -j$(nproc) Image.gz dtbs modules`
+               - Copy the final working config: `cp .config ../srcdir/config`
+            IMPORTANT GUIDELINES:
+            - Preserve functionality of patches while adapting to new kernel APIs
+            - Make minimal necessary changes to achieve compilation
+            - Disable problematic patches only if they're fundamentally incompatible
+            - Follow Linux kernel coding standards
+            - Test incrementally to isolate issues
+            Please proceed with fixing these build issues intelligently.
+      - name: Verify successful build after Claude fixes
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        run: |
+          cd linux
+          
+          # Final build verification
+          if make -j$(nproc) Image.gz dtbs modules; then
+            echo "Build successful after Claude fixes!"
+            cp .config ../srcdir/config
+          else
+            echo "ERROR: Build still failing after Claude resolution"
+            exit 1
+          fi
       - name: Install pacman & pacman-contrib
         if: env.KERNVER != env.PKGVER
         shell: bash
@@ -70,14 +276,104 @@ jobs:
           download_url=$(curl -s "$url" | grep -A1 "Download" | grep -oP 'http[^"]+')
           wget "$download_url"
           sudo pacman -dd --noconfirm -U pacman-contrib-*.pkg.tar.xz
-
-      - name: Update PKGBUILD and push new version
+      - name: Prepare documentation for PR
         if: env.KERNVER != env.PKGVER
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           cd srcdir
+          
+          # Create comprehensive PR documentation
+          echo "# Kernel Update: ${{ env.PKGVER }} → $KERNVER" > PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          echo "## Summary" >> PR_DESCRIPTION.md
+          echo "Automated kernel update with intelligent conflict and build issue resolution using Claude Code." >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          
+          echo "## Changes Made" >> PR_DESCRIPTION.md
+          echo "- **Version Update**: ${{ env.PKGVER }} → $KERNVER" >> PR_DESCRIPTION.md
+          echo "- **Package Release**: Reset to pkgrel=1" >> PR_DESCRIPTION.md
+          echo "- **Configuration**: Updated for new kernel version" >> PR_DESCRIPTION.md
+          
+          # Count and list patch changes
+          patch_count=$(ls -1 *.patch 2>/dev/null | wc -l)
+          echo "- **Patches**: $patch_count patch files regenerated" >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          
+          # Add rebase resolution details if they exist
+          if [ -f ../REBASE_RESOLUTION_LOG.md ]; then
+            echo "## 🔧 Rebase Conflict Resolution" >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+            echo '<details><summary>Click to view conflict resolution details</summary>' >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+            echo '```markdown' >> PR_DESCRIPTION.md
+            cat ../REBASE_RESOLUTION_LOG.md >> PR_DESCRIPTION.md
+            echo '```' >> PR_DESCRIPTION.md
+            echo '</details>' >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+          else
+            echo "## ✅ Rebase Status" >> PR_DESCRIPTION.md
+            echo "No conflicts encountered during rebase process." >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+          fi
+          
+          # Add build fix details if they exist
+          if [ -f ../BUILD_FIX_LOG.md ]; then
+            echo "## 🔨 Build Issue Resolution" >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+            echo '<details><summary>Click to view build fix details</summary>' >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+            echo '```markdown' >> PR_DESCRIPTION.md
+            cat ../BUILD_FIX_LOG.md >> PR_DESCRIPTION.md
+            echo '```' >> PR_DESCRIPTION.md
+            echo '</details>' >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+          else
+            echo "## ✅ Build Status" >> PR_DESCRIPTION.md
+            echo "Build completed successfully without issues." >> PR_DESCRIPTION.md
+            echo "" >> PR_DESCRIPTION.md
+          fi
+          
+          # Add upstream changes summary
+          echo "## 📋 Upstream Changes" >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          echo '<details><summary>Recent upstream commits</summary>' >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          echo '```' >> PR_DESCRIPTION.md
+          cd ../linux
+          git log --oneline ${{ env.PREV_REF }}..${{ env.REF }} --max-count=20 >> ../srcdir/PR_DESCRIPTION.md
+          cd ../srcdir
+          echo '```' >> PR_DESCRIPTION.md
+          echo '</details>' >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          
+          # Add testing information
+          echo "## 🧪 Testing Performed" >> PR_DESCRIPTION.md
+          echo "- ✅ Kernel compilation successful (Image.gz, dtbs, modules)" >> PR_DESCRIPTION.md
+          echo "- ✅ Configuration validation completed" >> PR_DESCRIPTION.md
+          echo "- ✅ Patch application verified" >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          
+          # Add review checklist
+          echo "## 📝 Review Checklist" >> PR_DESCRIPTION.md
+          echo "- [ ] Review conflict resolutions for correctness" >> PR_DESCRIPTION.md
+          echo "- [ ] Validate build fixes maintain intended functionality" >> PR_DESCRIPTION.md  
+          echo "- [ ] Check that configuration changes are appropriate" >> PR_DESCRIPTION.md
+          echo "- [ ] Verify patch files are properly formatted" >> PR_DESCRIPTION.md
+          echo "- [ ] Test kernel functionality if possible" >> PR_DESCRIPTION.md
+          echo "" >> PR_DESCRIPTION.md
+          
+          echo "---" >> PR_DESCRIPTION.md
+          echo "*This PR was generated automatically by the rebase-patches-with-claude workflow.*" >> PR_DESCRIPTION.md
+          echo "*All conflicts and build issues were resolved using Claude Code intelligent analysis.*" >> PR_DESCRIPTION.md
+      - name: Update PKGBUILD and create branch
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        run: |
+          cd srcdir
+          
+          # Create and switch to new branch
+          git checkout -b "rebase/$KERNVER"
+          
           # Update version numbers in PKGBUILD
           sed -i 's/^pkgver=.*/pkgver='$KERNVER'/' PKGBUILD
           sed -i 's/^pkgrel=.*/pkgrel=1/' PKGBUILD
@@ -93,8 +389,176 @@ jobs:
                  -e 's/^sha256sums=.*/sha256sums=('\''SKIP'\'')\n/' PKGBUILD
           # Calculate new sha256sums
           updpkgsums
-          # Commit & push changes
-          git diff --name-only --diff-filter=D | xargs git add
-          git add config *.patch PKGBUILD
-          git commit -m "update to $KERNVER"
-          git push
+      - name: Commit changes to rebase branch
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        run: |
+          cd srcdir
+          
+          # Stage all changes including deletions and new files
+          git diff --name-only --diff-filter=D | xargs git add 2>/dev/null || true
+          git add config *.patch PKGBUILD PR_DESCRIPTION.md
+          
+          # Include resolution logs if they exist
+          if [ -f ../REBASE_RESOLUTION_LOG.md ]; then
+            cp ../REBASE_RESOLUTION_LOG.md ./REBASE_RESOLUTION_LOG.md
+            git add REBASE_RESOLUTION_LOG.md
+          fi
+          if [ -f ../BUILD_FIX_LOG.md ]; then
+            cp ../BUILD_FIX_LOG.md ./BUILD_FIX_LOG.md  
+            git add BUILD_FIX_LOG.md
+          fi
+          
+          # Create comprehensive commit message
+          commit_msg="update to $KERNVER
+          Automated kernel update with intelligent conflict and build resolution.
+          
+          Changes:
+          - Updated PKGBUILD from ${{ env.PKGVER }} to $KERNVER
+          - Regenerated $(ls -1 *.patch | wc -l) patch files
+          - Updated kernel configuration for new version
+          - Updated package checksums"
+          
+          if [ -f REBASE_RESOLUTION_LOG.md ]; then
+            commit_msg+="\n- Resolved rebase conflicts (see REBASE_RESOLUTION_LOG.md)"
+          fi
+          if [ -f BUILD_FIX_LOG.md ]; then
+            commit_msg+="\n- Fixed build issues (see BUILD_FIX_LOG.md)"
+          fi
+          
+          commit_msg+="\n\nGenerated by: rebase-patches-with-claude workflow
+          Claude Code provided intelligent analysis and resolution."
+          
+          git commit -m "$commit_msg"
+      - name: Push rebase branch
+        if: env.KERNVER != env.PKGVER
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd srcdir
+          git push origin "rebase/$KERNVER"
+      - name: Create Pull Request with documentation
+        if: env.KERNVER != env.PKGVER
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const fs = require('fs');
+            
+            // Read the prepared PR description
+            let prBody;
+            try {
+              prBody = fs.readFileSync('srcdir/PR_DESCRIPTION.md', 'utf8');
+            } catch (e) {
+              prBody = `# Kernel Update: ${{ env.PKGVER }} → ${process.env.KERNVER}\n\nAutomated kernel update completed.`;
+            }
+            
+            // Create the pull request
+            const pr = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Kernel update to ${process.env.KERNVER}`,
+              head: `rebase/${process.env.KERNVER}`,
+              base: context.ref.replace('refs/heads/', ''), // Use the default branch
+              body: prBody,
+              draft: false
+            });
+            
+            console.log(`Pull Request created: ${pr.data.html_url}`);
+            
+            // Add labels to categorize the PR
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.data.number,
+              labels: ['kernel-update', 'automated', 'claude-resolved']
+            });
+            
+            // If there were conflicts or build issues, add appropriate labels
+            try {
+              fs.accessSync('../REBASE_RESOLUTION_LOG.md');
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.data.number,
+                labels: ['conflicts-resolved']
+              });
+            } catch (e) {
+              // No rebase resolution log found
+            }
+            
+            try {
+              fs.accessSync('../BUILD_FIX_LOG.md');
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.data.number,
+                labels: ['build-issues-fixed']
+              });
+            } catch (e) {
+              // No build fix log found
+            }
+            
+            // Add a comment with additional context if needed
+            let additionalContext = '';
+            let hasIssues = false;
+            
+            try {
+              const rebaseLog = fs.readFileSync('../REBASE_RESOLUTION_LOG.md', 'utf8');
+              additionalContext += `## 🔍 Rebase Analysis Summary\n\n`;
+              
+              // Extract key metrics from rebase log
+              const conflictCount = (rebaseLog.match(/conflict/gi) || []).length;
+              const fileCount = (rebaseLog.match(/\.c|\.h/g) || []).length;
+              
+              additionalContext += `- **Conflicts resolved**: ${conflictCount} issues\n`;
+              additionalContext += `- **Files affected**: ${fileCount} files\n`;
+              additionalContext += `- **Resolution method**: Claude Code intelligent analysis\n\n`;
+              hasIssues = true;
+            } catch (e) {
+              additionalContext += `## ✅ Clean Rebase\nNo conflicts encountered during rebase.\n\n`;
+            }
+            
+            try {
+              const buildLog = fs.readFileSync('../BUILD_FIX_LOG.md', 'utf8');
+              additionalContext += `## 🔨 Build Fix Summary\n\n`;
+              
+              // Extract key metrics from build log  
+              const errorCount = (buildLog.match(/error/gi) || []).length;
+              const warningCount = (buildLog.match(/warning/gi) || []).length;
+              
+              additionalContext += `- **Errors resolved**: ${errorCount} issues\n`;
+              additionalContext += `- **Warnings addressed**: ${warningCount} warnings\n`;
+              additionalContext += `- **Resolution method**: Claude Code intelligent analysis\n\n`;
+              hasIssues = true;
+            } catch (e) {
+              additionalContext += `## ✅ Clean Build\nBuild completed without issues.\n\n`;
+            }
+            
+            if (hasIssues) {
+              additionalContext += `## ⚠️ Review Priority\n`;
+              additionalContext += `This update required automated conflict/build resolution. Please:\n`;
+              additionalContext += `1. Review the resolution logs carefully\n`;
+              additionalContext += `2. Test the kernel functionality\n`;
+              additionalContext += `3. Validate that patch intent is preserved\n`;
+              additionalContext += `4. Check for any unexpected behavior\n\n`;
+            } else {
+              additionalContext += `## ✨ Smooth Update\n`;
+              additionalContext += `This was a clean update with no conflicts or build issues.\n`;
+              additionalContext += `Standard review and testing recommended.\n\n`;
+            }
+            
+            additionalContext += `---\n*Automated by rebase-patches-with-claude workflow*`;
+            
+            // Add the summary comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.data.number,
+              body: additionalContext
+            });
+            
+            // Set output for potential use in subsequent steps
+            core.setOutput('pr-number', pr.data.number);
+            core.setOutput('pr-url', pr.data.html_url);

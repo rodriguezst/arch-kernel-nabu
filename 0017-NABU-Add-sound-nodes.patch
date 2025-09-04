@@ -1,7 +1,7 @@
-From b1e45ee7eefa1a5ebd8b8a8d17a5d8878da664bf Mon Sep 17 00:00:00 2001
+From 62a95af91525d9ae8bc94f62df352a7653468199 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 28 Jul 2023 00:39:46 +0300
-Subject: [PATCH 17/79] NABU: Add sound nodes
+Subject: [PATCH 17/77] NABU: Add sound nodes
 
 ---
  .../boot/dts/qcom/sm8150-xiaomi-nabu.dts      | 139 ++++++++++++++++++
@@ -186,5 +186,5 @@ index 6e3cdb0e8cd7..5fc879ed5499 100644
  		pinmux {
  			pins = "gpio43", "gpio44",
 -- 
-2.50.1
+2.49.0
 

@@ -1,7 +1,7 @@
-From 0761a6690c01bfbe0d0831889457577e979b7b28 Mon Sep 17 00:00:00 2001
+From 70c8284866c3cc774703b329d9768aca85ebfd52 Mon Sep 17 00:00:00 2001
 From: DeltaSporos <alexandergp@pm.me>
 Date: Mon, 13 Jul 2020 06:57:33 -0400
-Subject: [PATCH 09/79] arm64: boot: dts: qcom: add OnePlus 7/Pro/T
+Subject: [PATCH 09/77] arm64: boot: dts: qcom: add OnePlus 7/Pro/T
 
 Add initial device trees for the OnePlus 7, 7T and 7 Pro.
 
@@ -33,7 +33,7 @@ index 2e02b6357484..91a3b3fc9d26 100644
  dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-sony-xperia-edo-pdx206.dtb
 diff --git a/arch/arm64/boot/dts/qcom/sm8150-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sm8150-oneplus-common.dtsi
 new file mode 100644
-index 000000000000..f93daaf0a434
+index 000000000000..6b17b0d077b5
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm8150-oneplus-common.dtsi
 @@ -0,0 +1,474 @@
@@ -661,5 +661,5 @@ index 000000000000..7ba966a838c7
 +};
 \ No newline at end of file
 -- 
-2.50.1
+2.49.0
 

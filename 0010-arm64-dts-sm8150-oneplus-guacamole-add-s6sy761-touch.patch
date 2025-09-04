@@ -1,7 +1,7 @@
-From 0b4bb9c0376a664557a11ed2c95c85fefa42aa0c Mon Sep 17 00:00:00 2001
+From a3a1df41fe4088c25cce9b8b99888783cc5a6237 Mon Sep 17 00:00:00 2001
 From: Caleb Connolly <caleb@connolly.tech>
 Date: Fri, 5 Mar 2021 01:40:17 +0000
-Subject: [PATCH 10/79] arm64: dts: sm8150-oneplus-guacamole: add s6sy761 touch
+Subject: [PATCH 10/77] arm64: dts: sm8150-oneplus-guacamole: add s6sy761 touch
 
 ---
  .../dts/qcom/sm8150-oneplus-guacamole.dts     | 65 ++++++++++---------
@@ -95,5 +95,5 @@ index 160f4e11ba48..bf4b540d36aa 100644
  };
 \ No newline at end of file
 -- 
-2.50.1
+2.49.0
 

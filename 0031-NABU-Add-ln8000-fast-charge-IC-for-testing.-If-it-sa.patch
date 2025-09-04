@@ -1,7 +1,7 @@
-From 8e4346e1632f4b5cd5a2f8c5dcc89a539bd58549 Mon Sep 17 00:00:00 2001
+From c5be9fe1a517f0bef171f237ef19f5c275b04b04 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 11 Jan 2024 19:19:35 +0000
-Subject: [PATCH 35/54] NABU: Add ln8000 fast charge IC for testing. If it says
+Subject: [PATCH 31/49] NABU: Add ln8000 fast charge IC for testing. If it says
  op_mode = 3 without falling back to 1, then fast charging works. Tested with:
  Samsung PD charger (Type-C to Type-C) - works! Xiaomi QC3 charger (USB A to
  Type-C) - doesn't pass volt_qual (maybe PD negotiation selected wrong
@@ -54,10 +54,10 @@ index 5c0da316c732..2ab37a2ca88d 100644
  
  &i2c7 {
 diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 3bbca8685dc6..d00fbc6703ec 100644
+index a99a48e55520..cea91989d255 100644
 --- a/drivers/power/supply/Kconfig
 +++ b/drivers/power/supply/Kconfig
-@@ -1045,4 +1045,10 @@ config BATTERY_QCOM_FG
+@@ -1082,4 +1082,10 @@ config BATTERY_QCOM_FG
  	  adds support for battery fuel gauging and state of charge of
  	  battery connected to the fuel gauge.
  
@@ -69,10 +69,10 @@ index 3bbca8685dc6..d00fbc6703ec 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index b1ba4e0e5a61..2ff1efb210a3 100644
+index 7825ffc716fa..568ac6989235 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
-@@ -120,3 +120,4 @@ obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
+@@ -123,3 +123,4 @@ obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
  obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_pmi8998_charger.o
  obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
  obj-$(CONFIG_BATTERY_QCOM_FG)	+= qcom_fg.o
@@ -1847,5 +1847,5 @@ index 000000000000..f4c386bf2a9f
 +MODULE_VERSION("0.3.0");
 \ No newline at end of file
 -- 
-2.49.0
+2.50.1
 

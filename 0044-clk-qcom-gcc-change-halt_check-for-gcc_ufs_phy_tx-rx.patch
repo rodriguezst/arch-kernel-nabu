@@ -1,7 +1,7 @@
-From b6fa686102a9a33d8351fa37d5f33ae2e0c09909 Mon Sep 17 00:00:00 2001
+From 01f999fbc20f27b278106c87757197280585f4b1 Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Thu, 28 Nov 2024 21:09:26 +0100
-Subject: [PATCH 49/54] clk: qcom: gcc: change halt_check for
+Subject: [PATCH 44/49] clk: qcom: gcc: change halt_check for
  gcc_ufs_phy_tx/rx_symbol_0/1_clk
 
 ---
@@ -44,5 +44,5 @@ index cefceb780889..cb27715ea727 100644
  		.enable_reg = 0x77018,
  		.enable_mask = BIT(0),
 -- 
-2.49.0
+2.50.1
 

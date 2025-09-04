@@ -1,7 +1,7 @@
-From 90870d9ab73c93e70266f57d35020b9d12a9a11d Mon Sep 17 00:00:00 2001
+From 58026980587fa31b42a0f9a35d58af36878660a7 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:18:12 +0000
-Subject: [PATCH 37/54] NABU: [DISABLED] Set panel rotation.
+Subject: [PATCH 33/49] NABU: [DISABLED] Set panel rotation.
  https://gitlab.com/sm8250-mainline/linux/-/commit/0c5a27875882447139700b93f3a20a94a411d260
 
 ---
@@ -21,5 +21,5 @@ index 3f39e0b3e261..0b5d92209369 100644
  		ports {
  			#address-cells = <1>;
 -- 
-2.49.0
+2.50.1
 

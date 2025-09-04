@@ -1,0 +1,35 @@
+From f616b827ffe23301be1e361d54ae9e85445d7c94 Mon Sep 17 00:00:00 2001
+From: Catmengi <138163939+catmengi@users.noreply.github.com>
+Date: Tue, 19 Nov 2024 09:48:28 +0000
+Subject: [PATCH 77/79] arch: arm64: boot: dts: qcom: sm8150.dtsi: change reset
+ name and freq-table-hz of ufs_mem_hc
+
+This is needed in some nabu tablets to fix UFS
+---
+ arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+index d79d2b5fdd01..088c3a3996fe 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+@@ -1055,6 +1055,16 @@ &ufs_mem_hc {
+ 	vccq-max-microamp = <700000>;
+ 	vccq2-supply = <&vreg_s4a_1p8>;
+ 	vccq2-max-microamp = <750000>;
++	reset-names = "core_reset";
++	freq-table-hz =
++		<0 0>,
++		<0 0>,
++		<37500000 300000000>,
++		<37500000 300000000>,
++		<0 0>,
++		<0 0>,
++		<0 0>,
++		<0 0>;
+ };
+ 
+ &ufs_mem_phy {
+-- 
+2.50.1
+

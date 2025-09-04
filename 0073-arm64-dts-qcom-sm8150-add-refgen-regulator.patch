@@ -1,0 +1,49 @@
+From f81574d96b0985651c62c96a58e11c2b6d24c6ce Mon Sep 17 00:00:00 2001
+From: Andrew Gigena <mail@andrewgigena.dev>
+Date: Fri, 18 Jul 2025 10:37:18 -0300
+Subject: [PATCH 73/79] arm64: dts: qcom: sm8150: add refgen regulator
+
+On SM8150 platform the DSI internally is using the refgen regulator. Add
+corresponding device node and link it as a supply to the DSI node.
+
+Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+---
+ arch/arm64/boot/dts/qcom/sm8150.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+index 23178d9d2d87..5f94b1682af9 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+@@ -3498,6 +3498,12 @@ usb_2_hsphy: phy@88e3000 {
+ 			resets = <&gcc GCC_QUSB2PHY_SEC_BCR>;
+ 		};
+ 
++		refgen: regulator@88e7000 {
++			compatible = "qcom,sm8150-refgen-regulator",
++				     "qcom,sdm845-refgen-regulator";
++			reg = <0x0 0x088e7000 0x0 0x60>;
++		};
++
+ 		usb_1_qmpphy: phy@88e8000 {
+ 			compatible = "qcom,sm8150-qmp-usb3-dp-phy";
+ 			reg = <0 0x088e8000 0 0x3000>;
+@@ -4014,6 +4020,7 @@ mdss_dsi0: dsi@ae94000 {
+ 
+ 				operating-points-v2 = <&dsi_opp_table>;
+ 				power-domains = <&rpmhpd SM8150_MMCX>;
++				refgen-supply = <&refgen>;
+ 
+ 				phys = <&mdss_dsi0_phy>;
+ 
+@@ -4107,6 +4114,7 @@ mdss_dsi1: dsi@ae96000 {
+ 
+ 				operating-points-v2 = <&dsi_opp_table>;
+ 				power-domains = <&rpmhpd SM8150_MMCX>;
++				refgen-supply = <&refgen>;
+ 
+ 				phys = <&mdss_dsi1_phy>;
+ 
+-- 
+2.50.1
+

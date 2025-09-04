@@ -1,4 +1,4 @@
-From f412a7d96532526d5fc635bb1136797951eaf1a0 Mon Sep 17 00:00:00 2001
+From 4c130bcf009361d73aadde48e105624e527fd585 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:34:06 +0300
 Subject: [PATCH 17/49] SM8150: Add slimbus nodes
@@ -45,5 +45,5 @@ index 058bb304fec9..93d3e1276dfd 100644
  			compatible = "qcom,sm8150-adsp-pas";
  			reg = <0x0 0x17300000 0x0 0x4040>;
 -- 
-2.50.1
+2.49.0
 

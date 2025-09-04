@@ -1,4 +1,4 @@
-From 950d30043b1497b9102abc57e0f7acabdfc030c6 Mon Sep 17 00:00:00 2001
+From 6fac476f2bb88257444fda6cc9e6b47c29a6a031 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sun, 14 Aug 2022 14:35:59 +0300
 Subject: [PATCH 07/49] NABU: Added novatek touchscreen node
@@ -40,5 +40,5 @@ index f07607d79416..f4a8fb41a057 100644
  	gpio-reserved-ranges = <126 4>;
  
 -- 
-2.50.1
+2.49.0
 

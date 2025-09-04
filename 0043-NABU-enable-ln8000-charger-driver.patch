@@ -1,4 +1,4 @@
-From a6c17c4ea1af81758cfb182cef47ee000c1a4373 Mon Sep 17 00:00:00 2001
+From c9a8611e822818a5c83c20cdd906558111b672be Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Tue, 26 Nov 2024 10:54:51 +0000
 Subject: [PATCH 43/49] NABU: enable ln8000 charger driver
@@ -110,5 +110,5 @@ index f4c386bf2a9f..da3d78187a80 100644
 \ No newline at end of file
 +MODULE_VERSION("0.3.0");
 -- 
-2.50.1
+2.49.0
 

@@ -1,4 +1,4 @@
-From 01f999fbc20f27b278106c87757197280585f4b1 Mon Sep 17 00:00:00 2001
+From 89a503c58da70150a5bc508cfec4f5026120e082 Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Thu, 28 Nov 2024 21:09:26 +0100
 Subject: [PATCH 44/49] clk: qcom: gcc: change halt_check for
@@ -44,5 +44,5 @@ index cefceb780889..cb27715ea727 100644
  		.enable_reg = 0x77018,
  		.enable_mask = BIT(0),
 -- 
-2.50.1
+2.49.0
 

@@ -1,7 +1,7 @@
-From 15adbd4dc0c6fd291d41ffe00ee1f9498a31e909 Mon Sep 17 00:00:00 2001
+From 8c9b02076aa69e59a264f1699ac3bf9f95975c77 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Thu, 4 Aug 2022 13:26:26 +0800
-Subject: [PATCH 05/54] Input: Add nt36523 touchscreen driver
+Subject: [PATCH 05/49] Input: Add nt36523 touchscreen driver
 
 Signed-off-by: map220v <map220v300@gmail.com>
 ---
@@ -22,7 +22,7 @@ Signed-off-by: map220v <map220v300@gmail.com>
  create mode 100644 drivers/input/touchscreen/nt36523/nt36xxx_mem_map.h
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 91a2b584dab1..94f6b36230cf 100644
+index 196905162945..0ed83e356c3e 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
 @@ -12,6 +12,8 @@ menuconfig INPUT_TOUCHSCREEN

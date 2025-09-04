@@ -1,17 +1,17 @@
-From e472c726ee399d55b2e9c195d98f964bf9ded319 Mon Sep 17 00:00:00 2001
+From 79dabe3447d85344f26b1d2dacffa8629e95c4fe Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 4 Jan 2024 13:01:31 +0000
-Subject: [PATCH 29/54] drm/panel: nt36523: Enable 120fps for nabu csot
+Subject: [PATCH 25/49] drm/panel: nt36523: Enable 120fps for nabu csot
 
 ---
  drivers/gpu/drm/panel/panel-novatek-nt36523.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-index 9149751845cb..744dffbc4070 100644
+index 151da98a99a8..ebb6e6b9cccf 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-@@ -1159,8 +1159,7 @@ static const struct drm_display_mode elish_csot_modes[] = {
+@@ -1123,8 +1123,7 @@ static const struct drm_display_mode elish_csot_modes[] = {
  
  static const struct drm_display_mode nabu_csot_modes[] = {
  	{

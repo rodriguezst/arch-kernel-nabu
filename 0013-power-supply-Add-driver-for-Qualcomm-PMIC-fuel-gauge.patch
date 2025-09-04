@@ -1,7 +1,7 @@
-From ac37deb3ac9f521a0b038d0a9e181c4b70f3e98a Mon Sep 17 00:00:00 2001
+From 0b2c3ea612c1381e4d42518ff38d12a6397ac388 Mon Sep 17 00:00:00 2001
 From: Joel Selvaraj <jo@jsfamily.in>
 Date: Wed, 3 Feb 2021 19:54:45 +0000
-Subject: [PATCH 13/54] power: supply: Add driver for Qualcomm PMIC fuel gauge
+Subject: [PATCH 13/49] power: supply: Add driver for Qualcomm PMIC fuel gauge
 
 Ths driver supports the fuel gauge hardware available on PMICs such as PMI8994,
 as well as gen 3 fuel gauge hardware available on PMI8998.
@@ -37,10 +37,10 @@ Signed-off-by: map220v <map220v300@gmail.com>
  create mode 100644 drivers/power/supply/qcom_fg.c
 
 diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 8dbd39afa43c..3bbca8685dc6 100644
+index 79ddb006e2da..a99a48e55520 100644
 --- a/drivers/power/supply/Kconfig
 +++ b/drivers/power/supply/Kconfig
-@@ -1037,4 +1037,12 @@ config FUEL_GAUGE_MM8013
+@@ -1074,4 +1074,12 @@ config FUEL_GAUGE_MM8013
  	  the state of charge, temperature, cycle count, actual and design
  	  capacity, etc.
  
@@ -54,10 +54,10 @@ index 8dbd39afa43c..3bbca8685dc6 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 61677be328b0..b1ba4e0e5a61 100644
+index 4f5f8e3507f8..7825ffc716fa 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
-@@ -119,3 +119,4 @@ obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
+@@ -122,3 +122,4 @@ obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
  obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
  obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_pmi8998_charger.o
  obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o

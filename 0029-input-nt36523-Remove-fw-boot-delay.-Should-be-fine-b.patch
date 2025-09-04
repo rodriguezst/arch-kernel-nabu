@@ -1,7 +1,7 @@
-From 29a37afe0ec5f2178c59b6fa22492e9576a603f7 Mon Sep 17 00:00:00 2001
+From 560490d1ea8bd55bbcebd37af8c1796c121188e2 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 10 Jan 2024 14:59:58 +0000
-Subject: [PATCH 33/54] input: nt36523: Remove fw boot delay. Should be fine,
+Subject: [PATCH 29/49] input: nt36523: Remove fw boot delay. Should be fine,
  because we load touchscreen as a module and panel module is built-in, so
  there is enough time for panel driver to send commands.
 

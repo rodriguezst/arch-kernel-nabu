@@ -1,7 +1,7 @@
-From 2711e43ea5f47712d7fba38edc47ce1de530f7a4 Mon Sep 17 00:00:00 2001
+From a4a43e6479b7d471202564b0e9d2563b0446a969 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 2 Aug 2023 19:20:01 +0300
-Subject: [PATCH 16/54] NABU: Add pmic fg and battery nodes
+Subject: [PATCH 16/49] NABU: Add pmic fg and battery nodes
 
 ---
  arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts | 14 ++++++++++++++

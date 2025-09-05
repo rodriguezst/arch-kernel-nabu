@@ -1,4 +1,4 @@
-From f9d149368e0b214cd1394188c68fb667d62b9554 Mon Sep 17 00:00:00 2001
+From 0aaa2d2511be527d2e0873300c55142611b052d8 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Fri, 18 Jul 2025 10:37:18 -0300
 Subject: [PATCH 71/77] arm64: dts: qcom: sm8150: add refgen regulator

@@ -1,4 +1,4 @@
-From 15f3fa68b4114f103eb973c6e3efad0895099900 Mon Sep 17 00:00:00 2001
+From 3d0ad1d44ce8183f9011509fab6fd90b145d0d34 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Sat, 19 Jul 2025 12:37:33 -0300
 Subject: [PATCH 62/77] dt-bindings: crypto: ice: Document sm8150 inline crypto

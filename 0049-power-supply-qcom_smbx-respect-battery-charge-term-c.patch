@@ -1,4 +1,4 @@
-From d85004e54f4c6796618fa915c5477fb2a9701a69 Mon Sep 17 00:00:00 2001
+From 4739328bf638bfa156441b1f078964e6bbd306f0 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:14 +0200
 Subject: [PATCH 49/77] power: supply: qcom_smbx: respect battery

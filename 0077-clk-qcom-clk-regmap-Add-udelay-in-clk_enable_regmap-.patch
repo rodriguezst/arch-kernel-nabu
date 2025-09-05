@@ -1,4 +1,4 @@
-From 6bfd2046c92f06aa7e5e70d5904281ea3fb1d936 Mon Sep 17 00:00:00 2001
+From ee93c9603a0852a1e7014e666bc6fc493bcaa7b0 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Dec 2023 19:19:34 +0300
 Subject: [PATCH 77/77] clk: qcom: clk-regmap: Add udelay in clk_enable_regmap

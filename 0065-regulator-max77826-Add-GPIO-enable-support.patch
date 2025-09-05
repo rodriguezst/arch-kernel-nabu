@@ -1,4 +1,4 @@
-From e4e3c360a433f6e678323d2937d86c50685f1ac8 Mon Sep 17 00:00:00 2001
+From a4b75f775a6a9aea5e675e842c7d5aa4a9f23553 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Thu, 24 Jul 2025 01:21:19 -0300
 Subject: [PATCH 65/77] regulator: max77826: Add GPIO enable support

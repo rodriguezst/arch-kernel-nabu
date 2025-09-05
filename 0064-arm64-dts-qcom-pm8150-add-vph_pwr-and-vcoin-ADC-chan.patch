@@ -1,4 +1,4 @@
-From f3c84fdf068fdaea9e484169f7ae7714b4e806d1 Mon Sep 17 00:00:00 2001
+From b1a23f542122197863156f49acc0f8b2af1ced13 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Tue, 22 Jul 2025 06:49:00 -0300
 Subject: [PATCH 64/77] arm64: dts: qcom: pm8150*: add vph_pwr and vcoin ADC

@@ -1,4 +1,4 @@
-From 1c58d18406fab3f9462d1e35ccc81e315e7d11ac Mon Sep 17 00:00:00 2001
+From bc6b1c791baea766852f1c6a666acf4567679920 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:18 +0200
 Subject: [PATCH 53/77] MAINTAINERS: add myself as smbx charger driver

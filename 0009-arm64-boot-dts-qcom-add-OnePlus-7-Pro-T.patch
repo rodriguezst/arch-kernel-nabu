@@ -1,4 +1,4 @@
-From 70c8284866c3cc774703b329d9768aca85ebfd52 Mon Sep 17 00:00:00 2001
+From 16d5ba98a1f9b9f820ca30ca28a769abc4f4cc92 Mon Sep 17 00:00:00 2001
 From: DeltaSporos <alexandergp@pm.me>
 Date: Mon, 13 Jul 2020 06:57:33 -0400
 Subject: [PATCH 09/77] arm64: boot: dts: qcom: add OnePlus 7/Pro/T

@@ -1,4 +1,4 @@
-From 57c211a5b919e0207f3dd1c3dca464fbd89507ec Mon Sep 17 00:00:00 2001
+From ae5ac4a80351c44a1a853dc3a98cf8ef615df778 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:37:44 +0300
 Subject: [PATCH 36/77] arch: arm64: boot: dts: qcom: sm8150 add ufs dependecy

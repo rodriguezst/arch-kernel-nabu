@@ -1,4 +1,4 @@
-From 8152f91edd3f4746c105e1c495111128e24a05db Mon Sep 17 00:00:00 2001
+From a58acc7ea707e5b2155d8ee5da7edcbcd0d70a9a Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Thu, 31 Jul 2025 11:41:20 -0300
 Subject: [PATCH 70/77] arm64: dts: qcom: Initial Google Pixel 4 support

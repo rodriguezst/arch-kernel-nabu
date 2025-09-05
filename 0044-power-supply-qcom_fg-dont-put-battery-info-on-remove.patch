@@ -1,4 +1,4 @@
-From cdbcd36b19981c223a227e10c7b5760e6b07d09d Mon Sep 17 00:00:00 2001
+From a2f833e7f6bd5acc258b660b66efc19822c544c7 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Fri, 20 Jun 2025 14:37:23 +0200
 Subject: [PATCH 44/77] power: supply: qcom_fg: dont put battery info on remove

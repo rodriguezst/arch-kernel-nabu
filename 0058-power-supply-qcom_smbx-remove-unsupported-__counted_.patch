@@ -1,4 +1,4 @@
-From a25744626ced319ccfec8e85d343fe0236f525c1 Mon Sep 17 00:00:00 2001
+From 2146e9bdba8a7a3339f3af124eaaae1394c0e4b5 Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Tue, 5 Aug 2025 15:33:13 +0200
 Subject: [PATCH 58/77] power: supply: qcom_smbx: remove unsupported

@@ -1,4 +1,4 @@
-From 2e515748e226f132cab8ff8f3c29913065ed5e32 Mon Sep 17 00:00:00 2001
+From 17dfbebd37f1839c5b2bab5317656f92b6c18da4 Mon Sep 17 00:00:00 2001
 From: Caleb Connolly <caleb@connolly.tech>
 Date: Fri, 5 Mar 2021 18:39:48 +0000
 Subject: [PATCH 11/77] arm64: dts: sm8150-oneplus: enable modem and wlan

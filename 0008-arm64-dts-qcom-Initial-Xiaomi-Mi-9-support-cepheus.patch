@@ -1,4 +1,4 @@
-From 2d359287579dc91ae90f8c3573d8ed971d056632 Mon Sep 17 00:00:00 2001
+From f552d801e0ce8a9a6db3bd0deec2c25e079e0f10 Mon Sep 17 00:00:00 2001
 From: Alexey Minnekhanov <alexeymin@postmarketos.org>
 Date: Sat, 30 Oct 2021 22:47:27 +0300
 Subject: [PATCH 08/77] arm64: dts: qcom: Initial Xiaomi Mi 9 support (cepheus)

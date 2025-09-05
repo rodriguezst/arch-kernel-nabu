@@ -1,4 +1,4 @@
-From fc50cd5a9a5f24981f0bc5a79ff1c82727969a4f Mon Sep 17 00:00:00 2001
+From effa0be2e33c0e636f025cf7e6b8daad910af7ea Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Thu, 31 Jul 2025 11:11:35 -0300
 Subject: [PATCH 69/77] Input: touchscreen: stm,fts driver

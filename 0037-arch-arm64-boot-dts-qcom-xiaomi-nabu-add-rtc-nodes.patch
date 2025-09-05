@@ -1,4 +1,4 @@
-From 4ce6eca894ffe1e9339df482010b5902a2a448c2 Mon Sep 17 00:00:00 2001
+From 0088c98da1e959a49a21efa6f58d1be0c4e3ff80 Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Sat, 11 Jan 2025 23:56:12 +0100
 Subject: [PATCH 37/77] arch: arm64: boot: dts: qcom: xiaomi-nabu add rtc nodes

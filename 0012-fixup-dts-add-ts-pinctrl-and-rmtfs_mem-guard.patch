@@ -1,4 +1,4 @@
-From 0b7518d4b77ce4b08685e37862c2a73c66904dc1 Mon Sep 17 00:00:00 2001
+From ad28c4107886729703c69161d5985dea0a0e0d8f Mon Sep 17 00:00:00 2001
 From: Caleb Connolly <caleb@connolly.tech>
 Date: Wed, 5 May 2021 16:40:04 +0100
 Subject: [PATCH 12/77] fixup! dts: add ts pinctrl and rmtfs_mem guard

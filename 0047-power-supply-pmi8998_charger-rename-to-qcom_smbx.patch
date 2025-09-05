@@ -1,4 +1,4 @@
-From 1398ef0c4e9e6f53d49400af44e147c4bb11ad2d Mon Sep 17 00:00:00 2001
+From 10d794b329478cee3e0cd7367ca8513c55978d37 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:12 +0200
 Subject: [PATCH 47/77] power: supply: pmi8998_charger: rename to qcom_smbx

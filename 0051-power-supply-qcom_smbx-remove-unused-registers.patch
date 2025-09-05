@@ -1,4 +1,4 @@
-From c9c6e61f9920cd77e67404e1df91ac03d86c79e0 Mon Sep 17 00:00:00 2001
+From dd2b13c87820a4b18f8533b1d5777e2b0889e6fc Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:16 +0200
 Subject: [PATCH 51/77] power: supply: qcom_smbx: remove unused registers

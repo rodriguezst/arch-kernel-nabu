@@ -1,4 +1,4 @@
-From 33e2a56a05cce18a01823fbbc0f81c522e324e28 Mon Sep 17 00:00:00 2001
+From 548d7079e17c47e9ae8a8c12520a81e7cb7a1b01 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:40:44 +0300
 Subject: [PATCH 19/77] NABU: Add wcd9340 and microphone dais

@@ -1,4 +1,4 @@
-From 1eb06aa1a26770976d069096182fe6dd3743a08c Mon Sep 17 00:00:00 2001
+From 93da21ac0f4408fbd1dad9f54b11cf465021aaa6 Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Tue, 5 Aug 2025 18:34:07 +0200
 Subject: [PATCH 60/77] dts: qcom: sm8150: enable pm8150b_charger

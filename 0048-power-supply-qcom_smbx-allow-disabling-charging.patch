@@ -1,4 +1,4 @@
-From d11d7519c87a3f6443268ebf34bf5dc0e0c6e297 Mon Sep 17 00:00:00 2001
+From 2296b9a43c6ff276a34cc35cd2df0814d8fdfaa1 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:13 +0200
 Subject: [PATCH 48/77] power: supply: qcom_smbx: allow disabling charging

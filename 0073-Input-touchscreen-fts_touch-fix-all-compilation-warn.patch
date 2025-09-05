@@ -1,4 +1,4 @@
-From c77ee36c63f75061e5bae59bbf24f582c209c6da Mon Sep 17 00:00:00 2001
+From 824c6674fb9f2caeca0c6a518460847cf8b48bf4 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Tue, 5 Aug 2025 22:31:28 -0300
 Subject: [PATCH 73/77] Input: touchscreen: fts_touch: fix all compilation

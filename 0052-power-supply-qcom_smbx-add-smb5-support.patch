@@ -1,4 +1,4 @@
-From cc7ce14469f4679d4387dfdc9c2fe1044e89e986 Mon Sep 17 00:00:00 2001
+From f5888458a6561f51fe6ad51d52faef47ab1ab78b Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:17 +0200
 Subject: [PATCH 52/77] power: supply: qcom_smbx: add smb5 support

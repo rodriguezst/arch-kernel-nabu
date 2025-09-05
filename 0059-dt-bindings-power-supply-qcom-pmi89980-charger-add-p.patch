@@ -1,4 +1,4 @@
-From 19016f7bad93175e33d85f3e5ed7774ba1274c86 Mon Sep 17 00:00:00 2001
+From 70d63ab1b8cc7c01f6e16e02d14430df09b4c3fb Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:09 +0200
 Subject: [PATCH 59/77] dt-bindings: power: supply: qcom,pmi89980-charger: add

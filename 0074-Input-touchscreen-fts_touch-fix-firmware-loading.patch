@@ -1,4 +1,4 @@
-From bbf5212993c1476d6a5601cb93a5fc6e26e272ef Mon Sep 17 00:00:00 2001
+From 8d3ae664995988900b48425d8dcf78fb3a1db0b1 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Fri, 8 Aug 2025 03:59:13 -0300
 Subject: [PATCH 74/77] Input: touchscreen: fts_touch: fix firmware loading

@@ -1,4 +1,4 @@
-From c158bf3937fcc32033be645b25087a0405a6ddbf Mon Sep 17 00:00:00 2001
+From b07a502753380c95efc6c993ace4fbb06b7ae357 Mon Sep 17 00:00:00 2001
 From: tx0 <tima012007@gmail.com>
 Date: Tue, 11 Feb 2025 21:03:08 +0500
 Subject: [PATCH 56/77] NABU: dts: enable ln8000 charger, reduce charge voltage

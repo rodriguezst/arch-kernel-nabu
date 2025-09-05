@@ -1,4 +1,4 @@
-From d4e44aee529c3e0c6cff5ecd8c537f75339d7d2a Mon Sep 17 00:00:00 2001
+From dfd291ab3c0a788bbdef7e174e5cf9c38475459f Mon Sep 17 00:00:00 2001
 From: panpanpanpan <panjeoc@proton.me>
 Date: Sat, 29 Mar 2025 10:06:42 -0500
 Subject: [PATCH 41/77] Revert "NABU: Set panel rotation."

@@ -1,4 +1,4 @@
-From 1502d4fff3c62dd265f1e0798c459a9b12f04c81 Mon Sep 17 00:00:00 2001
+From fd1d56623e7577596b71ad94dfe67bac96910ebd Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:18:12 +0000
 Subject: [PATCH 26/77] NABU: Set panel rotation.

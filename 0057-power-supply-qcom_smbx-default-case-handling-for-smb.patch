@@ -1,4 +1,4 @@
-From 034f93080a20ca8aff84484b738d4114795c20fa Mon Sep 17 00:00:00 2001
+From a4afaaf55125e2f25a0b9a7728edd436988f7977 Mon Sep 17 00:00:00 2001
 From: Joel Selvaraj <foss@joelselvaraj.com>
 Date: Sat, 21 Jun 2025 02:57:27 -0500
 Subject: [PATCH 57/77] power: supply: qcom_smbx: default case handling for

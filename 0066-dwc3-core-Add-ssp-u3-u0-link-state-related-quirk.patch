@@ -1,4 +1,4 @@
-From bd9c5f8d502dc014d119044016d657ba710b9988 Mon Sep 17 00:00:00 2001
+From f6f5643e8c9829210ecce53d45c1619fe0b9e9dc Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Thu, 31 Jul 2025 11:49:14 -0300
 Subject: [PATCH 66/77] dwc3: core: Add ssp u3 u0 link state related quirk

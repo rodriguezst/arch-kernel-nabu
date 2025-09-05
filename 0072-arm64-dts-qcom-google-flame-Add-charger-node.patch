@@ -1,4 +1,4 @@
-From 426ea931eb36841e1091bd5e522c281d458e57dc Mon Sep 17 00:00:00 2001
+From bf52e281531e31e29e7351e403cf3e9d39a62c09 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Tue, 5 Aug 2025 22:31:05 -0300
 Subject: [PATCH 72/77] arm64: dts: qcom: google-flame: Add charger node

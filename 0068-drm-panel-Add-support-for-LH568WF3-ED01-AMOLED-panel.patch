@@ -1,4 +1,4 @@
-From 111df01406900f3d638757c37851d740a80d44fc Mon Sep 17 00:00:00 2001
+From 95e8929e4c5f7365325ef1367f558ae7b2703762 Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Thu, 24 Jul 2025 01:48:35 -0300
 Subject: [PATCH 68/77] drm: panel: Add support for LH568WF3-ED01 AMOLED panel

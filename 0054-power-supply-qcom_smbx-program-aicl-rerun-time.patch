@@ -1,4 +1,4 @@
-From 73f7177e46fd8008be6cb5b6a4a9fe7ee9d2cd80 Mon Sep 17 00:00:00 2001
+From 78619ed868e2ee7fa40bb6128baac2d74e4c32eb Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:19 +0200
 Subject: [PATCH 54/77] power: supply: qcom_smbx: program aicl rerun time

@@ -1,4 +1,4 @@
-From 99b534c93632b66041613342ec202164dce85a24 Mon Sep 17 00:00:00 2001
+From eb8c8abfdf481fc33e4b2ffa6ea88417158b7b4b Mon Sep 17 00:00:00 2001
 From: Andrew Gigena <mail@andrewgigena.dev>
 Date: Sat, 19 Jul 2025 12:39:16 -0300
 Subject: [PATCH 63/77] arm64: dts: qcom: sm8150: Use standalone ICE node for

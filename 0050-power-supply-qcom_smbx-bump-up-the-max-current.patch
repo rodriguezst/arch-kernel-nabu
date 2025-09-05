@@ -1,4 +1,4 @@
-From 42301c5d5fac97fa4bb51aa8c85608aecc1fd2bf Mon Sep 17 00:00:00 2001
+From dba029c6c1aa0b936e9ce15c9532022a1abddd67 Mon Sep 17 00:00:00 2001
 From: Casey Connolly <casey.connolly@linaro.org>
 Date: Thu, 19 Jun 2025 16:55:15 +0200
 Subject: [PATCH 50/77] power: supply: qcom_smbx: bump up the max current

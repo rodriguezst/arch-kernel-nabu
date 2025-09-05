@@ -1,4 +1,4 @@
-From 7dfe540ea9b62c6b42c66148fbb14c3bec208037 Mon Sep 17 00:00:00 2001
+From df0c8e46430fc4e73b06bf600152b097ea81cdd9 Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Mon, 4 Aug 2025 18:59:33 +0200
 Subject: [PATCH 31/77] drm/panel: novatek-nt36523: transition to mipi_dsi

@@ -40,7 +40,7 @@ jobs:
 
       - name: Generate secure boot test keys
         run: |
-          pacman -S --needed --noconfirm openssl
+          sudo pacman -S --needed --noconfirm openssl
           openssl genrsa -out sb.key 2048
           openssl req -new -x509 -key sb.key -out sb.crt -days 365 \
             -subj "/C=US/ST=Test/L=Test/O=GitHub Actions Test/CN=Test SB Certificate"

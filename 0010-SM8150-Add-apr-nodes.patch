@@ -1,4 +1,4 @@
-From 44e3f9ce1dc45c239b307699e0af679ff33265eb Mon Sep 17 00:00:00 2001
+From de807d42f666726294de6cea8134f3f3848e7634 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Mon, 24 Jul 2023 13:19:21 +0300
 Subject: [PATCH 10/49] SM8150: Add apr nodes
@@ -89,5 +89,5 @@ index fa2c84d388ff..058bb304fec9 100644
  		compatible = "arm,armv8-timer";
  		interrupts = <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
 -- 
-2.49.0
+2.51.0
 

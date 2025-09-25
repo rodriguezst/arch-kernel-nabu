@@ -1,4 +1,4 @@
-From 421ccf96dd9c507e2f6199757d6dc88902772078 Mon Sep 17 00:00:00 2001
+From 397ecfef4c2f30492b24a0bbc237abe4c4d9de89 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 11 Jan 2024 19:19:35 +0000
 Subject: [PATCH 31/49] NABU: Add ln8000 fast charge IC for testing. If it says
@@ -1847,5 +1847,5 @@ index 000000000000..f4c386bf2a9f
 +MODULE_VERSION("0.3.0");
 \ No newline at end of file
 -- 
-2.49.0
+2.51.0
 

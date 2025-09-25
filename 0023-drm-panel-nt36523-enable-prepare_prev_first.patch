@@ -1,4 +1,4 @@
-From 39387bebd80c7d12fc79fc701c6dfe94020f0161 Mon Sep 17 00:00:00 2001
+From 34300e42af39d926adb5173ad52ec2db44224215 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Thu, 31 Aug 2023 21:18:48 +0800
 Subject: [PATCH 23/49] drm/panel: nt36523: enable prepare_prev_first
@@ -21,5 +21,5 @@ index f0bbef8321bd..151da98a99a8 100644
  
  	ret = of_drm_get_panel_orientation(dev->of_node, &pinfo->orientation);
 -- 
-2.49.0
+2.51.0
 

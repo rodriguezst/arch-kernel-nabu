@@ -1,4 +1,4 @@
-From 1747a56f89113b8e2900da8e411703025408ea93 Mon Sep 17 00:00:00 2001
+From 07870795a9c4d04a7f727408032d7aa102d44197 Mon Sep 17 00:00:00 2001
 From: tx0 <me@tx0.su>
 Date: Sat, 29 Mar 2025 16:33:10 +0500
 Subject: [PATCH 49/49] nt36xxx: Change pen resolution This is done to be able
@@ -38,5 +38,5 @@ index 9f0c58083d25..46cc0dd60c88 100644
  			x_max = ts->abs_x_max - 1;
  			y_max = ts->abs_y_max - 1;
 -- 
-2.49.0
+2.51.0
 

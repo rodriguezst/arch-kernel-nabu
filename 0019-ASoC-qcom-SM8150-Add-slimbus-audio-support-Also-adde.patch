@@ -1,7 +1,7 @@
-From ead803013ab6ad6e985166bdc274131cf8840d1f Mon Sep 17 00:00:00 2001
+From 43b0c8a84f3709d3d999cffd7f391e67b14c8dfe Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:37:44 +0300
-Subject: [PATCH 19/49] ASoC: qcom: SM8150: Add slimbus audio support Also
+Subject: [PATCH 19/50] ASoC: qcom: SM8150: Add slimbus audio support Also
  added improvements from sdm845 sound card driver.
 
 ---
@@ -337,5 +337,5 @@ index 66a98219ff99..e56b42d79dc4 100644
  	return devm_snd_soc_register_card(dev, card);
  }
 -- 
-2.49.0
+2.51.0
 

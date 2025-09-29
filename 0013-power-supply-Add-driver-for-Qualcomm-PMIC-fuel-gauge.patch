@@ -1,7 +1,7 @@
-From 0b2c3ea612c1381e4d42518ff38d12a6397ac388 Mon Sep 17 00:00:00 2001
+From 5e1257ada7ea65e7b14cb5e8dc44722ca8ee8dfe Mon Sep 17 00:00:00 2001
 From: Joel Selvaraj <jo@jsfamily.in>
 Date: Wed, 3 Feb 2021 19:54:45 +0000
-Subject: [PATCH 13/49] power: supply: Add driver for Qualcomm PMIC fuel gauge
+Subject: [PATCH 13/50] power: supply: Add driver for Qualcomm PMIC fuel gauge
 
 Ths driver supports the fuel gauge hardware available on PMICs such as PMI8994,
 as well as gen 3 fuel gauge hardware available on PMI8998.
@@ -54,12 +54,12 @@ index 79ddb006e2da..a99a48e55520 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 4f5f8e3507f8..7825ffc716fa 100644
+index f943c9150b32..423fab85bdea 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
 @@ -122,3 +122,4 @@ obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
  obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
- obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_pmi8998_charger.o
+ obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smbx.o
  obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
 +obj-$(CONFIG_BATTERY_QCOM_FG)	+= qcom_fg.o
 diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
@@ -1389,5 +1389,5 @@ index 000000000000..4af6c71370ff
 +MODULE_DESCRIPTION("Qualcomm PMIC Fuel Gauge Driver");
 +MODULE_LICENSE("GPL v2");
 -- 
-2.49.0
+2.51.0
 

@@ -1,7 +1,7 @@
-From b4b1139c8a05ad1a44899bd970a81c2bc38ba2b8 Mon Sep 17 00:00:00 2001
+From 3de6fdb2ceaad3ddc7de634a39f5ee21d622ea2e Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Dec 2023 19:19:34 +0300
-Subject: [PATCH 45/49] clk: qcom: clk-regmap: Add udelay in clk_enable_regmap
+Subject: [PATCH 45/50] clk: qcom: clk-regmap: Add udelay in clk_enable_regmap
  and clk_disable_regmap
 
 Attempt to fix 'clock stuck in off/on state' errors, should fix broken UFS on boot and broken DSI on suspend/resume.
@@ -32,5 +32,5 @@ index 92ac4e0d7dbe..019eb25fc979 100644
  			   val);
  }
 -- 
-2.49.0
+2.51.0
 

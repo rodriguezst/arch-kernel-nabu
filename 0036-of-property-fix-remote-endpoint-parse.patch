@@ -1,7 +1,7 @@
-From ef67044c5c2119c0545682df804c7f3eec0271a7 Mon Sep 17 00:00:00 2001
+From deb54605cd50c3ef5d45f7853b6afac645384fa1 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Wed, 3 Apr 2024 23:03:35 +0800
-Subject: [PATCH 36/49] of: property: fix remote-endpoint parse
+Subject: [PATCH 36/50] of: property: fix remote-endpoint parse
 
 ---
  drivers/of/property.c | 2 +-
@@ -21,5 +21,5 @@ index c1feb631e383..cb93e8b732dd 100644
  
  static const struct supplier_bindings of_supplier_bindings[] = {
 -- 
-2.49.0
+2.51.0
 

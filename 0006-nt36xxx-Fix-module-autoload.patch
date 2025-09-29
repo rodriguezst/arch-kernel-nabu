@@ -1,7 +1,7 @@
-From b2c8f6adf8f8b358cf07e338ce50a495da83e68e Mon Sep 17 00:00:00 2001
+From 344827a1ed0ef1ca8bfc0094d12cde51b20bcb0d Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sun, 23 Jul 2023 17:32:10 +0300
-Subject: [PATCH 06/49] nt36xxx: Fix module autoload
+Subject: [PATCH 06/50] nt36xxx: Fix module autoload
 
 ---
  drivers/input/touchscreen/nt36523/nt36xxx.c | 2 ++
@@ -41,5 +41,5 @@ index 2ec9ccb3b522..8f6efc1d8735 100644
  #if NVT_DEBUG
  #define NVT_LOG(fmt, args...)    pr_err("[%s] %s %d: " fmt, NVT_SPI_NAME, __func__, __LINE__, ##args)
 -- 
-2.49.0
+2.51.0
 

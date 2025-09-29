@@ -1,7 +1,7 @@
-From 48fc57bae817b46d1ae305774c0f053b4c0cf36a Mon Sep 17 00:00:00 2001
+From 6ed1bddde7e7a25ee67010a2de46773cf214ef8f Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Wed, 20 Mar 2024 14:16:21 +0000
-Subject: [PATCH 32/49] NABU: Add hall sensor for magnetic cover detection.
+Subject: [PATCH 32/50] NABU: Add hall sensor for magnetic cover detection.
  Hall IC Model: BU52272NUZ-ZE2
 
 ---
@@ -38,5 +38,5 @@ index 2ab37a2ca88d..3f39e0b3e261 100644
  };
  
 -- 
-2.49.0
+2.51.0
 

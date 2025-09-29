@@ -1,7 +1,7 @@
-From 39387bebd80c7d12fc79fc701c6dfe94020f0161 Mon Sep 17 00:00:00 2001
+From 4bcf5247fdbcb8b834d27d4aaec308122db08cf1 Mon Sep 17 00:00:00 2001
 From: Jianhua Lu <lujianhua000@gmail.com>
 Date: Thu, 31 Aug 2023 21:18:48 +0800
-Subject: [PATCH 23/49] drm/panel: nt36523: enable prepare_prev_first
+Subject: [PATCH 23/50] drm/panel: nt36523: enable prepare_prev_first
 
 Signed-off-by: map220v <map220v300@gmail.com>
 ---
@@ -9,17 +9,17 @@ Signed-off-by: map220v <map220v300@gmail.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-index f0bbef8321bd..151da98a99a8 100644
+index dd3230b47986..a56851d1b94d 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-@@ -1443,6 +1443,7 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
+@@ -1445,6 +1445,7 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
  
  	pinfo->dsi[0] = dsi;
  	mipi_dsi_set_drvdata(dsi, pinfo);
-+	pinfo->panel.prepare_prev_first = true;
- 	drm_panel_init(&pinfo->panel, dev, &nt36523_panel_funcs, DRM_MODE_CONNECTOR_DSI);
++	drm_panel_init(&pinfo->panel, dev, &nt36523_panel_funcs, DRM_MODE_CONNECTOR_DSI);
  
  	ret = of_drm_get_panel_orientation(dev->of_node, &pinfo->orientation);
+ 	if (ret < 0) {
 -- 
-2.49.0
+2.51.0
 

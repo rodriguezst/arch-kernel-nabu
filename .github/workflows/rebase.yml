@@ -76,10 +76,9 @@ jobs:
         uses: anthropics/claude-code-action/base-action@main
         env:
           GH_TOKEN: ${{ github.token }}
-          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: "--dangerously-skip-permissions"
           prompt: |
             I'm working on rebasing kernel patches and encountered conflicts during the rebase process. 
             CONTEXT:
@@ -192,10 +191,9 @@ jobs:
         uses: anthropics/claude-code-action/base-action@main
         env:
           GH_TOKEN: ${{ github.token }}
-          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: "--dangerously-skip-permissions"
           prompt: |
             I'm working on a kernel build that failed after rebasing patches. The build needs to be fixed intelligently.
             CONTEXT:

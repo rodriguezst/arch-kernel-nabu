@@ -1,0 +1,64 @@
+From ad21d5430d2dc3aea189b26541ee487ad4dda8b9 Mon Sep 17 00:00:00 2001
+From: "github-actions[bot]" <github-actions[bot]@users.noreply.github.com>
+Date: Tue, 30 Sep 2025 14:09:23 +0000
+Subject: [PATCH 49/49] power: supply: Update to kernel 6.17 API
+
+Adapt power supply drivers to kernel 6.17 API changes:
+- Replace of_node with fwnode in power_supply_config
+- Replace power_supply_get_by_phandle with devm_power_supply_get_by_reference
+
+The power_supply subsystem was updated to use the generic firmware node
+API (fwnode) instead of device tree-specific API (of_node). This provides
+a unified interface for DT, ACPI, and other firmware types.
+---
+ drivers/power/supply/ln8000_charger.c | 4 ++--
+ drivers/power/supply/qcom_fg.c        | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/power/supply/ln8000_charger.c b/drivers/power/supply/ln8000_charger.c
+index da3d78187a80..8f580e600d7d 100644
+--- a/drivers/power/supply/ln8000_charger.c
++++ b/drivers/power/supply/ln8000_charger.c
+@@ -1492,7 +1492,7 @@ static int ln8000_parse_dt(struct ln8000_info *info)
+ static int ln8000_psy_register(struct ln8000_info *info)
+ {
+     info->psy_cfg.drv_data = info;
+-    info->psy_cfg.of_node  = info->client->dev.of_node;
++    info->psy_cfg.fwnode  = dev_fwnode(&info->client->dev);
+     info->psy_desc.name 		= "ln8000-charger";
+     info->psy_desc.type 		= POWER_SUPPLY_TYPE_MAINS;
+     info->psy_desc.properties	= ln8000_charger_props;
+@@ -1569,7 +1569,7 @@ static int ln8000_probe(struct i2c_client *client)
+     info->dev = &client->dev;
+     info->client = client;
+ 
+-    info->typec_psy = power_supply_get_by_phandle(info->dev->of_node,"usb-tcpm");
++    info->typec_psy = devm_power_supply_get_by_reference(info->dev, "usb-tcpm");
+ 
+     if(info->typec_psy == NULL){
+ 	ret = -(EPROBE_DEFER);
+diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
+index 2d6ad9f9718d..5f0be854435c 100644
+--- a/drivers/power/supply/qcom_fg.c
++++ b/drivers/power/supply/qcom_fg.c
+@@ -1201,7 +1201,7 @@ static int qcom_fg_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	supply_config.drv_data = chip;
+-	supply_config.of_node = pdev->dev.of_node;
++	supply_config.fwnode = dev_fwnode(&pdev->dev);
+ 
+ 	chip->batt_psy = devm_power_supply_register(chip->dev,
+ 			&batt_psy_desc, &supply_config);
+@@ -1304,7 +1304,7 @@ static int qcom_fg_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Optional: Get charger power supply for status checking */
+-	chip->chg_psy = power_supply_get_by_phandle(chip->dev->of_node,
++	chip->chg_psy = devm_power_supply_get_by_reference(chip->dev,
+ 							"power-supplies");
+ 	if (IS_ERR(chip->chg_psy)) {
+ 		ret = PTR_ERR(chip->chg_psy);
+-- 
+2.51.0
+

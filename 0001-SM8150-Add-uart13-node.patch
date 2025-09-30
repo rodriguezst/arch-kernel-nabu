@@ -1,4 +1,4 @@
-From 1d6e7e87230fc59c8dedbcf6626c415bc5152f96 Mon Sep 17 00:00:00 2001
+From b831ecd8f5db5c55db73974eed854204beb305cb Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Sat, 13 Aug 2022 12:30:38 +0300
 Subject: [PATCH 01/49] SM8150: Add uart13 node
@@ -8,7 +8,7 @@ Subject: [PATCH 01/49] SM8150: Add uart13 node
  1 file changed, 18 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index cdb47359c4c8..fa2c84d388ff 100644
+index abf12e10d33f..6e3151c9e693 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
 @@ -1693,6 +1693,17 @@ spi13: spi@c8c000 {
@@ -29,7 +29,7 @@ index cdb47359c4c8..fa2c84d388ff 100644
  			i2c14: i2c@c90000 {
  				compatible = "qcom,geni-i2c";
  				reg = <0 0x00c90000 0 0x4000>;
-@@ -2598,6 +2609,13 @@ qup_spi13_default: qup-spi13-default-state {
+@@ -2594,6 +2605,13 @@ qup_spi13_default: qup-spi13-default-state {
  				bias-disable;
  			};
  
@@ -44,5 +44,5 @@ index cdb47359c4c8..fa2c84d388ff 100644
  				pins = "gpio47", "gpio48";
  				function = "qup14";
 -- 
-2.49.0
+2.51.0
 

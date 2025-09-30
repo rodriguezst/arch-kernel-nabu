@@ -1,7 +1,7 @@
-From 36eeb14e73a3a011d9a362f50008d8df91ebddcb Mon Sep 17 00:00:00 2001
+From 2dcb4703b468c840ca6265b9d5d77960b7a184fe Mon Sep 17 00:00:00 2001
 From: Nicola Guerrera <guerrera.nicola@gmail.com>
 Date: Thu, 14 Nov 2024 22:57:02 +0100
-Subject: [PATCH 02/76] nt36xxx: add pen input resolution
+Subject: [PATCH 02/71] nt36xxx: add pen input resolution
 
 ---
  drivers/input/touchscreen/nt36523/nt36xxx.c | 15 +++++++++++----
@@ -54,5 +54,5 @@ index 33c7614436b0..2c6a30ecceca 100644
  #define NVT_TOUCH_SUPPORT_HW_RST 0
  
 -- 
-2.50.1
+2.51.0
 

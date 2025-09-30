@@ -1,7 +1,7 @@
-From 66263b6937d200e1685c57e4ab6ec10066ab448e Mon Sep 17 00:00:00 2001
+From 79026d26bf614d73e9f674c164b5ea661aceefb9 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Fri, 4 Aug 2023 01:40:44 +0300
-Subject: [PATCH 19/76] NABU: Add wcd9340 and microphone dais
+Subject: [PATCH 19/71] NABU: Add wcd9340 and microphone dais
 
 ---
  .../boot/dts/qcom/sm8150-xiaomi-nabu.dts      | 52 ++++++++++++++++++-
@@ -106,5 +106,5 @@ index 89658efc2875..17f7aeb5e99f 100644
  	status = "okay";
  
 -- 
-2.50.1
+2.51.0
 

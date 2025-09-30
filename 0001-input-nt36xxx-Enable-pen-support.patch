@@ -1,7 +1,7 @@
-From 314694e834cda8a7e2b3eaf5d907615712dee1e5 Mon Sep 17 00:00:00 2001
+From 7f4d455dd8659585a4c31f56c5cf0eebff56ca4f Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 28 Nov 2023 15:28:53 +0300
-Subject: [PATCH 01/76] input: nt36xxx: Enable pen support
+Subject: [PATCH 01/71] input: nt36xxx: Enable pen support
 
 ---
  drivers/input/touchscreen/nt36523/nt36xxx.c   | 1949 +++++++++++++++++
@@ -3081,5 +3081,5 @@ index 000000000000..71c271d8c548
 +}
 +#endif /* BOOT_UPDATE_FIRMWARE */
 -- 
-2.50.1
+2.51.0
 

@@ -1,7 +1,7 @@
-From 224505cb06f8ac6dc010337ddd56cba872bdc718 Mon Sep 17 00:00:00 2001
+From 2ac462ab6d41a91918f2d47c5c92a272893c429f Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 20 Jul 2023 16:18:32 +0300
-Subject: [PATCH 15/76] drm/panel: nt36523: Add Xiaomi Pad 5 CSOT panel
+Subject: [PATCH 15/71] drm/panel: nt36523: Add Xiaomi Pad 5 CSOT panel
 
 ---
  .../display/panel/novatek,nt36523.yaml        |   1 +
@@ -21,7 +21,7 @@ index c4bae4f77085..1ed8a82213e0 100644
        - items:
            - enum:
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-index 116d67bfa114..39bec30e2938 100644
+index 32cf64c7c18b..ec08bc61ff89 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
 @@ -485,6 +485,204 @@ static int elish_csot_init_sequence(struct panel_info *pinfo)
@@ -276,7 +276,7 @@ index 116d67bfa114..39bec30e2938 100644
  static const struct panel_desc j606f_boe_desc = {
  	.modes = j606f_boe_modes,
  	.num_modes = ARRAY_SIZE(j606f_boe_modes),
-@@ -1260,6 +1491,10 @@ static const struct of_device_id nt36523_of_match[] = {
+@@ -1261,6 +1492,10 @@ static const struct of_device_id nt36523_of_match[] = {
  		.compatible = "xiaomi,elish-csot-nt36523",
  		.data = &elish_csot_desc,
  	},
@@ -288,5 +288,5 @@ index 116d67bfa114..39bec30e2938 100644
  };
  MODULE_DEVICE_TABLE(of, nt36523_of_match);
 -- 
-2.50.1
+2.51.0
 

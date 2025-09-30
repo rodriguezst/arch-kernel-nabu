@@ -1,14 +1,14 @@
-From f1801964c31e2a05be15afb51e6c2c7b620da337 Mon Sep 17 00:00:00 2001
+From d52b8a2009f367fa76b1be11da919adf06dbc445 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Mon, 24 Jul 2023 13:19:21 +0300
-Subject: [PATCH 03/76] SM8150: Add apr nodes
+Subject: [PATCH 03/71] SM8150: Add apr nodes
 
 ---
  arch/arm64/boot/dts/qcom/sm8150.dtsi | 55 ++++++++++++++++++++++++++++
  1 file changed, 55 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index cdb47359c4c8..1308ee4b64a7 100644
+index abf12e10d33f..e5413c8151ba 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
 @@ -9,7 +9,9 @@
@@ -21,7 +21,7 @@ index cdb47359c4c8..1308ee4b64a7 100644
  #include <dt-bindings/clock/qcom,rpmh.h>
  #include <dt-bindings/clock/qcom,dispcc-sm8150.h>
  #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
-@@ -4338,6 +4340,56 @@ glink-edge {
+@@ -4334,6 +4336,56 @@ glink-edge {
  				qcom,remote-pid = <2>;
  				mboxes = <&apss_shared 8>;
  
@@ -78,7 +78,7 @@ index cdb47359c4c8..1308ee4b64a7 100644
  				fastrpc {
  					compatible = "qcom,fastrpc";
  					qcom,glink-channels = "fastrpcglink-apps-dsp";
-@@ -4605,6 +4657,9 @@ wifi: wifi@18800000 {
+@@ -4601,6 +4653,9 @@ wifi: wifi@18800000 {
  		};
  	};
  
@@ -89,5 +89,5 @@ index cdb47359c4c8..1308ee4b64a7 100644
  		compatible = "arm,armv8-timer";
  		interrupts = <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
 -- 
-2.50.1
+2.51.0
 

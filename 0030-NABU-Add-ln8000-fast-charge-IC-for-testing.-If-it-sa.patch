@@ -1,7 +1,7 @@
-From 421ccf96dd9c507e2f6199757d6dc88902772078 Mon Sep 17 00:00:00 2001
+From 1463646af050f1673962fe00780d85bd1643af54 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Thu, 11 Jan 2024 19:19:35 +0000
-Subject: [PATCH 31/49] NABU: Add ln8000 fast charge IC for testing. If it says
+Subject: [PATCH 30/49] NABU: Add ln8000 fast charge IC for testing. If it says
  op_mode = 3 without falling back to 1, then fast charging works. Tested with:
  Samsung PD charger (Type-C to Type-C) - works! Xiaomi QC3 charger (USB A to
  Type-C) - doesn't pass volt_qual (maybe PD negotiation selected wrong
@@ -69,11 +69,11 @@ index a99a48e55520..cea91989d255 100644
 +
  endif # POWER_SUPPLY
 diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 7825ffc716fa..568ac6989235 100644
+index 423fab85bdea..625f6c93403f 100644
 --- a/drivers/power/supply/Makefile
 +++ b/drivers/power/supply/Makefile
 @@ -123,3 +123,4 @@ obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
- obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_pmi8998_charger.o
+ obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smbx.o
  obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
  obj-$(CONFIG_BATTERY_QCOM_FG)	+= qcom_fg.o
 +obj-$(CONFIG_CHARGER_LN8000)	+= ln8000_charger.o
@@ -1847,5 +1847,5 @@ index 000000000000..f4c386bf2a9f
 +MODULE_VERSION("0.3.0");
 \ No newline at end of file
 -- 
-2.49.0
+2.51.0
 

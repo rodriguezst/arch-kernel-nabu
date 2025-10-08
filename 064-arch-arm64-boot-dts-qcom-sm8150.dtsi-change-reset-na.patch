@@ -18,7 +18,7 @@ index 5d9446b19d27..917663888c45 100644
  	vccq2-max-microamp = <750000>;
 +
 +	/delete-property/ resets;
-+    /delete-property/ reset-names;
++	/delete-property/ reset-names;
 +	freq-table-hz =
 +		<37500000 300000000>,
 +		<0 0>,

@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=3
+pkgrel=8
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -56,12 +56,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0037-drivers-gpu-drm-drm_notifier.c-add-include-drm-drm_n.patch'
         '0038-arch-arm64-boot-dts-qcom-sm8150-xiaomi-nabu.dts-add-.patch'
         '0039-arch-arm64-boot-dts-qcom-sm8150-xiaomi-nabu.dts-add-.patch'
-        '0040-arch-arm64-boot-dts-qcom-sm8150.dtsi-change-reset-na.patch'
+        '0040-NABU-remove-resets-from-ufs-related-nodes-to-avoid-r.patch'
         '0041-NABU-enable-rtc.patch'
         '0042-NABU-disable-Sensor-Low-Power-Island.patch'
         '0043-NABU-enable-ln8000-charger-driver.patch'
-        '0044-clk-qcom-gcc-change-halt_check-for-gcc_ufs_phy_tx-rx.patch'
-        '0045-clk-qcom-clk-regmap-Add-udelay-in-clk_enable_regmap-.patch'
         '0046-nt36xxx-add-pen-input-resolution.patch'
         '0047-arch-arm64-boot-dts-qcom-sm8150-add-ufs-dependecy-on.patch'
         '0048-arch-arm64-boot-dts-qcom-sm8150-disable-broken-crypt.patch'
@@ -108,12 +106,10 @@ sha256sums=('1a4be2fe6b5246aa4ac8987a8a4af34c42a8dd7d08b46ab48516bcc1befbcd83'
             '1fb02e7177ab0e904a282da8919a42af8db72473f054340da68d348221d477db'
             'b4ea35f189c3e160b5f326ea2ffbe0c346a0ff56661fa33a7ea8b854382ce802'
             '67b17cc5684310f665b2526a562eb47c5a9472a7a5c7285d6551e771cdda0f0e'
-            'afd38ea3f9e836418990e23c1402bd33164319c5d1a013eae437ab1041f42062'
+            'dacd39ba3510e92ec15dcf2573654f94cb56543c7a6825aa525031134ee55e1a'
             '2ebd671af37040e590b6504be5a8c565a44120f2d34933a1cfad015a7975d147'
             'a9d9af0dcb7b21db0bf23783ca1dad3060063a245eeddd310b7ee6d9fb7a24ea'
             'fc5c62d6edd1131c9ed5e6decbe88e546e0d8a3af0477916d799d2603cd5becf'
-            '53a07f8f057a57a53d98b9a3abe07d1afbc103b94dab0488f0a1c3d5155ad562'
-            'f0635a1e96167151a7272be0a4fbac60c6ca0f552672f2463ae4c152b362740c'
             '43c297e52f1da1852cd96e18162d20a69c1d439074f54d42c8240457fb97e3a1'
             'ce16dbc5ff5a8ae4456dd3feaf69205c138f7eebdd55b974101a4cc9a122e935'
             '756c9921e2303c734f6a6f5273c0742f1648977e6427f479d989f16d7544daae'

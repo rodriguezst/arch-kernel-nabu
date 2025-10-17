@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=11
+pkgrel=12
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -64,7 +64,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0047-arch-arm64-boot-dts-qcom-sm8150-add-ufs-dependecy-on.patch'
         '0048-arch-arm64-boot-dts-qcom-sm8150-disable-broken-crypt.patch'
         '0049-nt36xxx-Change-pen-resolution-This-is-done-to-be-abl.patch'
-        '0050-drm-msm-dsi-phy-7nm-Add-PLL-stabilization-delay-v2.patch'
+        '0050-Add-CLK_OPS_PARENT_ENABLE-flag-to-dispcc-clock-sourc.patch'
         'linux.preset')
 sha256sums=('1a4be2fe6b5246aa4ac8987a8a4af34c42a8dd7d08b46ab48516bcc1befbcd83'
             '0c8a138e76654e854b08d3731a115d0a9d95b75f38fa65925f00979f0d4b0960'
@@ -115,7 +115,7 @@ sha256sums=('1a4be2fe6b5246aa4ac8987a8a4af34c42a8dd7d08b46ab48516bcc1befbcd83'
             'ce16dbc5ff5a8ae4456dd3feaf69205c138f7eebdd55b974101a4cc9a122e935'
             '756c9921e2303c734f6a6f5273c0742f1648977e6427f479d989f16d7544daae'
             '37e6dbed716c012379175633ee58dc5eb13fed225d81a4055876e19c42b329b8'
-            '25402af1ab14765a9d8d03362bf5180e21c839c354f000c0e6f1c681f109e7d9'
+            '1fc70090cf67bc74458d49c95bebc7724b6772b72a75dda70d3a77a37d79775d'
             '4521b5fc8964affe10f14c5bfa3ca9d12011c986f1f07d9d150d0726308fb9a1')
 
 prepare() {

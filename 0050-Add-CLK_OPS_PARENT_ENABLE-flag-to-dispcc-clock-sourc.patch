@@ -1,0 +1,52 @@
+From d83eb7ef12542db22793ea38df6dbb6794e6ea6a Mon Sep 17 00:00:00 2001
+From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
+Date: Fri, 17 Oct 2025 16:14:09 +0000
+Subject: [PATCH] Add CLK_OPS_PARENT_ENABLE flag to dispcc clock sources
+
+---
+ drivers/clk/qcom/dispcc-sm8250.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/clk/qcom/dispcc-sm8250.c b/drivers/clk/qcom/dispcc-sm8250.c
+index 8f433e1e7..5ab01ce85 100644
+--- a/drivers/clk/qcom/dispcc-sm8250.c
++++ b/drivers/clk/qcom/dispcc-sm8250.c
+@@ -237,7 +237,7 @@ static struct clk_rcg2 disp_cc_mdss_byte0_clk_src = {
+ 		.name = "disp_cc_mdss_byte0_clk_src",
+ 		.parent_data = disp_cc_parent_data_2,
+ 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_2),
+-		.flags = CLK_SET_RATE_PARENT,
++		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+ 		.ops = &clk_byte2_ops,
+ 	},
+ };
+@@ -251,7 +251,7 @@ static struct clk_rcg2 disp_cc_mdss_byte1_clk_src = {
+ 		.name = "disp_cc_mdss_byte1_clk_src",
+ 		.parent_data = disp_cc_parent_data_2,
+ 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_2),
+-		.flags = CLK_SET_RATE_PARENT,
++		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+ 		.ops = &clk_byte2_ops,
+ 	},
+ };
+@@ -578,7 +578,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk0_clk_src = {
+ 		.name = "disp_cc_mdss_pclk0_clk_src",
+ 		.parent_data = disp_cc_parent_data_6,
+ 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_6),
+-		.flags = CLK_SET_RATE_PARENT,
++		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+ 		.ops = &clk_pixel_ops,
+ 	},
+ };
+@@ -592,7 +592,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk1_clk_src = {
+ 		.name = "disp_cc_mdss_pclk1_clk_src",
+ 		.parent_data = disp_cc_parent_data_6,
+ 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_6),
+-		.flags = CLK_SET_RATE_PARENT,
++		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+ 		.ops = &clk_pixel_ops,
+ 	},
+ };
+-- 
+2.50.1
+

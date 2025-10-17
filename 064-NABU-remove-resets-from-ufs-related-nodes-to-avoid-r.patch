@@ -1,0 +1,38 @@
+From e9fa54493604070e98938517b7e980eb51ca448e Mon Sep 17 00:00:00 2001
+From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
+Date: Tue, 14 Oct 2025 09:17:57 +0000
+Subject: [PATCH 01/11] NABU: remove resets from ufs related nodes to avoid
+ reinitialization after uefi handoff
+
+This is needed in some nabu tablets to fix UFS
+---
+ arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+index 5d9446b19..d023cd80f 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+@@ -1057,6 +1057,9 @@ &ufs_mem_hc {
+ 	vccq-max-microamp = <700000>;
+ 	vccq2-supply = <&vreg_s4a_1p8>;
+ 	vccq2-max-microamp = <750000>;
++
++	/delete-property/ resets;
++	/delete-property/ reset-names;
+ };
+ 
+ &ufs_mem_phy {
+@@ -1066,6 +1069,9 @@ &ufs_mem_phy {
+ 	vdda-phy-max-microamp = <90200>;
+ 	vdda-pll-supply = <&vreg_l3c_1p2>;
+ 	vdda-pll-max-microamp = <19000>;
++
++	/delete-property/ resets;
++	/delete-property/ reset-names;
+ };
+ 
+ &usb_1 {
+-- 
+2.50.1
+

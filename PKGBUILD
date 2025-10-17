@@ -6,7 +6,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=104
+pkgrel=106
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -75,9 +75,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '061-fbcc52de-input-touchscreen-fts_touch-fix-firmware-loading.patch'
         '062-a4313cdf-power-supply-qcom_fg-fix-build-for-6.17.patch'
         '063-972944d1-arch-arm64-boot-dts-qcom-sm8150-add-reset-to-mdss.patch'
-        '064-arch-arm64-boot-dts-qcom-sm8150.dtsi-change-reset-na.patch'
-        '065-clk-qcom-gcc-change-halt_check-for-gcc_ufs_phy_tx-rx.patch'
-        '066-clk-qcom-clk-regmap-Add-udelay-in-clk_enable_regmap-.patch'
+        '064-NABU-remove-resets-from-ufs-related-nodes-to-avoid-r.patch'
+        '065-clk-qcom-clk-regmap-Add-udelay-in-clk_enable_regmap-.patch'
         'linux.preset')
 sha256sums=('9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7'
             '0aba21b4cc451cf99b75c76723ceed52080bf435c7d3a7dd6d3281c17afaee42'
@@ -142,8 +141,7 @@ sha256sums=('9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7'
             '226731fe9e01d5700083f711323e4f8118e5687d08d50f3877c0ed5f6d71876b'
             '11642bd8b74bd9cd9b488829faec14e47e1d0590da32aab1a2b296be1fa9e398'
             '71f801b2e12c086126791adc3e1a65f16bd1891c15df045467dc3d795756da66'
-            'df1d9f62a7db52a4eefcd60cdd4918c07ba8f9c058e1b927ad140157bb73d9b6'
-            'bc3e2812b79e128b661d92e746464311611932012ba3609fc10b42b0e3bd0881'
+            'dacd39ba3510e92ec15dcf2573654f94cb56543c7a6825aa525031134ee55e1a'
             '28873983c239155dd6df26cb2edbb1985e18dd2223798eef4e5700b7a3ac8f14'
             '4521b5fc8964affe10f14c5bfa3ca9d12011c986f1f07d9d150d0726308fb9a1')
 

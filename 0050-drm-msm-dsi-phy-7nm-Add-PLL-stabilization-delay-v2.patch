@@ -1,0 +1,60 @@
+From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
+Date: Thu, 17 Oct 2025 12:00:00 +0000
+Subject: [PATCH] drm/msm/dsi: phy-7nm: Add PLL stabilization delay for SM8150
+
+On SM8150/SM8250 devices with dual-DSI configurations (like Xiaomi Pad 5),
+the DSI PHY PLLs require additional stabilization time after lock before
+their output clocks can be safely used by the display clock controller
+(dispcc).
+
+Without this delay, clocks derived from the DSI PHY PLLs may appear "stuck"
+during enable, causing intermittent kernel panics during boot when the
+display subsystem initializes.
+
+The issue manifests as:
+- Intermittent boot failures with "clock stuck in off state" errors
+- Kernel panics during dispcc clock enable operations  
+- Reliable boot only when display nodes are disabled in device tree
+
+Hardware investigation shows that while the PLL lock completes successfully,
+the PLL output needs 2-5ms additional stabilization time before downstream
+clock consumers (such as dispcc BYTE/PIXEL clocks) can use it reliably.
+
+Testing on SM8150 (Xiaomi Pad 5) with delays in different locations revealed:
+- Delays in dispcc probe: ineffective (PLL not yet configured)
+- Delays in clk_enable_regmap: effective but impacts all clocks
+- Delays in DSI PHY PLL enable: effective and properly targeted
+
+This adds a stabilization delay after PLL lock specifically in the 7nm PHY
+driver, resolving boot reliability issues on affected dual-DSI platforms.
+
+Signed-off-by: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
+---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index c19890358b747..c19890358b747 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -578,6 +578,17 @@ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+ 		goto error;
+ 	}
+ 
++	/*
++	 * SM8150/SM8250 dual-DSI: PLL output needs additional stabilization
++	 * time after lock before clocks are stable enough for consumers.
++	 * Without this delay, dispcc clocks using the PHY PLL as parent may
++	 * fail to enable with "clock stuck" errors during boot, causing
++	 * intermittent kernel panics on dual-DSI devices.
++	 * Hardware requires 2-5ms after PLL lock for output stabilization.
++	 */
++	if (pll_7nm->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_PRE_V4_1)
++		usleep_range(2000, 5000);
++
+ 	pll_7nm->phy->pll_on = true;
+ 
+ 	/*
+-- 
+2.40.0
+

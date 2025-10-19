@@ -1,7 +1,22 @@
+From e9fa54493604070e98938517b7e980eb51ca448e Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Sat, 18 Oct 2025 00:00:00 +0000
-Subject: [PATCH] drm/msm/dsi: Add aggressive timing delays for SM8150 DSI PHY
+Subject: [PATCH] drm/msm/dsi: Add timing delays for SM8150 DSI PHY
 
+Add critical timing delays to fix "clocks stuck in off/on state" errors
+and kernel panics on SM8150 (Snapdragon 855) devices.
+
+The Android BSP has explicit delays in the PHY reset, clock enable, and
+PLL prepare/unprepare sequences that are missing in mainline. SM8150
+hardware requires these delays for proper clock sequencing.
+
+Fixes:
+- Kernel panics at boot
+- "Clocks stuck in off/on state" errors
+- PLL lock failures
+- Display initialization failures
+
+Signed-off-by: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 ---
  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 22 ++++++++++++++++++++--
  1 file changed, 20 insertions(+), 2 deletions(-)
@@ -15,8 +30,8 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	writel(0x04, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_3);
  	dsi_pll_cmn_clk_cfg1_update(pll, cfg_1, cfg_1);
 +
-+	/* AGGRESSIVE: Wait for global clock to stabilize - critical for SM8150 */
-+	udelay(5);
++	/* Wait for global clock to stabilize - critical for SM8150 */
++	udelay(1);
  }
  
  static void dsi_pll_phy_dig_reset(struct dsi_pll_7nm *pll)
@@ -26,15 +41,16 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	 * coming out of a CX or analog rail power collapse while
  	 * ensuring that the pads maintain LP00 or LP11 state
 +	 *
-+	 * AGGRESSIVE delays for SM8150 power rail ramp times
++	 * On SM8150, we need explicit delays to allow the reset to
++	 * propagate through the digital logic before deasserting.
  	 */
  	writel(BIT(0), pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
 -	wmb(); /* Ensure that the reset is deasserted */
 +	wmb(); /* Ensure that the reset is asserted */
-+	udelay(50); /* AGGRESSIVE: Allow reset to propagate */
++	udelay(10); /* Allow reset to propagate through digital logic */
  	writel(0, pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
  	wmb(); /* Ensure that the reset is deasserted */
-+	udelay(50); /* AGGRESSIVE: Allow logic to stabilize */
++	udelay(10); /* Allow logic to stabilize after reset */
  }
  
  static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
@@ -42,8 +58,8 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	if (pll_7nm->slave)
  		dsi_pll_enable_pll_bias(pll_7nm->slave);
  
-+	/* AGGRESSIVE: Wait for bias to stabilize */
-+	udelay(5);
++	/* Wait for bias to stabilize before starting PLL */
++	udelay(1);
 +
  	/* Start PLL */
  	writel(BIT(0), pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
@@ -52,8 +68,8 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	 */
  	wmb();
  
-+	/* AGGRESSIVE: Give PLL more time to lock */
-+	udelay(50);
++	/* Give PLL time to lock before checking status */
++	udelay(10);
 +
  	/* Check for PLL lock */
  	rc = dsi_pll_7nm_lock_status(pll_7nm);
@@ -62,8 +78,8 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	if (pll_7nm->slave)
  		dsi_pll_enable_global_clk(pll_7nm->slave);
  
-+	/* AGGRESSIVE: Final stabilization delay */
-+	udelay(5);
++	/* Final stabilization delay before returning */
++	udelay(1);
 +
  error:
  	return rc;
@@ -73,21 +89,21 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	 */
  	dsi_pll_disable_global_clk(pll_7nm);
 +
-+	/* AGGRESSIVE: Wait for clock to fully gate */
-+	udelay(5);
++	/* Wait for clock to fully gate before powering down PLL */
++	udelay(1);
 +
  	writel(0, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
-+	udelay(5);
++	udelay(1);
 +
  	dsi_pll_disable_sub(pll_7nm);
  	if (pll_7nm->slave) {
  		dsi_pll_disable_global_clk(pll_7nm->slave);
-+		udelay(5);
++		udelay(1);
  		dsi_pll_disable_sub(pll_7nm->slave);
  	}
  	/* flush, ensure all register writes are done */
  	wmb();
-+	udelay(5);
++	udelay(1);
  	pll_7nm->phy->pll_on = false;
  }
  

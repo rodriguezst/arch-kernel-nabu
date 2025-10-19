@@ -31,7 +31,7 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	dsi_pll_cmn_clk_cfg1_update(pll, cfg_1, cfg_1);
 +
 +	/* Wait for global clock to stabilize - critical for SM8150 */
-+	udelay(1);
++	udelay(100);
  }
  
  static void dsi_pll_phy_dig_reset(struct dsi_pll_7nm *pll)
@@ -47,10 +47,10 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	writel(BIT(0), pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
 -	wmb(); /* Ensure that the reset is deasserted */
 +	wmb(); /* Ensure that the reset is asserted */
-+	udelay(10); /* Allow reset to propagate through digital logic */
++	udelay(100); /* Allow reset to propagate through digital logic */
  	writel(0, pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
  	wmb(); /* Ensure that the reset is deasserted */
-+	udelay(10); /* Allow logic to stabilize after reset */
++	udelay(100); /* Allow logic to stabilize after reset */
  }
  
  static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
@@ -59,7 +59,7 @@ index aaaaaaaaa..aaaaaaaaa 100644
  		dsi_pll_enable_pll_bias(pll_7nm->slave);
  
 +	/* Wait for bias to stabilize before starting PLL */
-+	udelay(1);
++	udelay(100);
 +
  	/* Start PLL */
  	writel(BIT(0), pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
@@ -69,7 +69,7 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	wmb();
  
 +	/* Give PLL time to lock before checking status */
-+	udelay(10);
++	udelay(100);
 +
  	/* Check for PLL lock */
  	rc = dsi_pll_7nm_lock_status(pll_7nm);
@@ -79,7 +79,7 @@ index aaaaaaaaa..aaaaaaaaa 100644
  		dsi_pll_enable_global_clk(pll_7nm->slave);
  
 +	/* Final stabilization delay before returning */
-+	udelay(1);
++	udelay(100);
 +
  error:
  	return rc;
@@ -90,20 +90,20 @@ index aaaaaaaaa..aaaaaaaaa 100644
  	dsi_pll_disable_global_clk(pll_7nm);
 +
 +	/* Wait for clock to fully gate before powering down PLL */
-+	udelay(1);
++	udelay(100);
 +
  	writel(0, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
-+	udelay(1);
++	udelay(100);
 +
  	dsi_pll_disable_sub(pll_7nm);
  	if (pll_7nm->slave) {
  		dsi_pll_disable_global_clk(pll_7nm->slave);
-+		udelay(1);
++		udelay(100);
  		dsi_pll_disable_sub(pll_7nm->slave);
  	}
  	/* flush, ensure all register writes are done */
  	wmb();
-+	udelay(1);
++	udelay(100);
  	pll_7nm->phy->pll_on = false;
  }
  

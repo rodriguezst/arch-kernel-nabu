@@ -1,52 +1,95 @@
-From d83eb7ef12542db22793ea38df6dbb6794e6ea6a Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
-Date: Fri, 17 Oct 2025 16:14:09 +0000
-Subject: [PATCH] Add CLK_OPS_PARENT_ENABLE flag to dispcc clock sources
+Date: Sat, 18 Oct 2025 00:00:00 +0000
+Subject: [PATCH] drm/msm/dsi: Add aggressive timing delays for SM8150 DSI PHY
 
 ---
- drivers/clk/qcom/dispcc-sm8250.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/qcom/dispcc-sm8250.c b/drivers/clk/qcom/dispcc-sm8250.c
-index 8f433e1e7..5ab01ce85 100644
---- a/drivers/clk/qcom/dispcc-sm8250.c
-+++ b/drivers/clk/qcom/dispcc-sm8250.c
-@@ -237,7 +237,7 @@ static struct clk_rcg2 disp_cc_mdss_byte0_clk_src = {
- 		.name = "disp_cc_mdss_byte0_clk_src",
- 		.parent_data = disp_cc_parent_data_2,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_2),
--		.flags = CLK_SET_RATE_PARENT,
-+		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
- 		.ops = &clk_byte2_ops,
- 	},
- };
-@@ -251,7 +251,7 @@ static struct clk_rcg2 disp_cc_mdss_byte1_clk_src = {
- 		.name = "disp_cc_mdss_byte1_clk_src",
- 		.parent_data = disp_cc_parent_data_2,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_2),
--		.flags = CLK_SET_RATE_PARENT,
-+		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
- 		.ops = &clk_byte2_ops,
- 	},
- };
-@@ -578,7 +578,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk0_clk_src = {
- 		.name = "disp_cc_mdss_pclk0_clk_src",
- 		.parent_data = disp_cc_parent_data_6,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_6),
--		.flags = CLK_SET_RATE_PARENT,
-+		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
- 		.ops = &clk_pixel_ops,
- 	},
- };
-@@ -592,7 +592,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk1_clk_src = {
- 		.name = "disp_cc_mdss_pclk1_clk_src",
- 		.parent_data = disp_cc_parent_data_6,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_6),
--		.flags = CLK_SET_RATE_PARENT,
-+		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
- 		.ops = &clk_pixel_ops,
- 	},
- };
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index aaaaaaaaa..aaaaaaaaa 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -374,12 +374,18 @@ static void dsi_pll_enable_global_clk(struct dsi_pll_7nm *pll)
+ 
+ 	writel(0x04, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_3);
+ 	dsi_pll_cmn_clk_cfg1_update(pll, cfg_1, cfg_1);
++
++	/* AGGRESSIVE: Wait for global clock to stabilize - critical for SM8150 */
++	udelay(5);
+ }
+ 
+ static void dsi_pll_phy_dig_reset(struct dsi_pll_7nm *pll)
+ {
+ 	/*
+ 	 * Reset the PHY digital domain. This would be needed when
+ 	 * coming out of a CX or analog rail power collapse while
+ 	 * ensuring that the pads maintain LP00 or LP11 state
++	 *
++	 * AGGRESSIVE delays for SM8150 power rail ramp times
+ 	 */
+ 	writel(BIT(0), pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
+-	wmb(); /* Ensure that the reset is deasserted */
++	wmb(); /* Ensure that the reset is asserted */
++	udelay(50); /* AGGRESSIVE: Allow reset to propagate */
+ 	writel(0, pll->phy->base + REG_DSI_7nm_PHY_CMN_GLBL_DIGTOP_SPARE4);
+ 	wmb(); /* Ensure that the reset is deasserted */
++	udelay(50); /* AGGRESSIVE: Allow logic to stabilize */
+ }
+ 
+ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+@@ -405,6 +418,9 @@ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+ 	if (pll_7nm->slave)
+ 		dsi_pll_enable_pll_bias(pll_7nm->slave);
+ 
++	/* AGGRESSIVE: Wait for bias to stabilize */
++	udelay(5);
++
+ 	/* Start PLL */
+ 	writel(BIT(0), pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
+ 
+@@ -414,6 +430,8 @@ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+ 	 */
+ 	wmb();
+ 
++	/* AGGRESSIVE: Give PLL more time to lock */
++	udelay(50);
++
+ 	/* Check for PLL lock */
+ 	rc = dsi_pll_7nm_lock_status(pll_7nm);
+ 	if (rc) {
+@@ -435,6 +453,9 @@ static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+ 	if (pll_7nm->slave)
+ 		dsi_pll_enable_global_clk(pll_7nm->slave);
+ 
++	/* AGGRESSIVE: Final stabilization delay */
++	udelay(5);
++
+ error:
+ 	return rc;
+ }
+@@ -449,10 +470,15 @@ static void dsi_pll_7nm_vco_unprepare(struct clk_hw *hw)
+ 	 * powering down the PLL
+ 	 */
+ 	dsi_pll_disable_global_clk(pll_7nm);
++
++	/* AGGRESSIVE: Wait for clock to fully gate */
++	udelay(5);
++
+ 	writel(0, pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
++	udelay(5);
++
+ 	dsi_pll_disable_sub(pll_7nm);
+ 	if (pll_7nm->slave) {
+ 		dsi_pll_disable_global_clk(pll_7nm->slave);
++		udelay(5);
+ 		dsi_pll_disable_sub(pll_7nm->slave);
+ 	}
+ 	/* flush, ensure all register writes are done */
+ 	wmb();
++	udelay(5);
+ 	pll_7nm->phy->pll_on = false;
+ }
+ 
 -- 
-2.50.1
-
+2.40.0

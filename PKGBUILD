@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=101
+pkgrel=300
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -59,7 +59,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0040-NABU-enable-rtc.patch'
         '0041-NABU-disable-Sensor-Low-Power-Island.patch'
         '0042-NABU-enable-ln8000-charger-driver.patch'
-        '0043-clk-qcom-gcc-change-halt_check-for-gcc_ufs_phy_tx-rx.patch'
         '0044-clk-qcom-clk-regmap-Add-udelay-in-clk_enable_regmap-.patch'
         '0045-nt36xxx-add-pen-input-resolution.patch'
         '0046-arch-arm64-boot-dts-qcom-sm8150-add-ufs-dependecy-on.patch'
@@ -108,11 +107,10 @@ sha256sums=('9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7'
             '50c6768da4b205d557b91280c73a93828a7de9c444ab217d913030705759a8f6'
             '82be4c684ee64d02e66d417604f5226903fcd1eb4c856b701a6394befdbede99'
             '6876f8fe5a83cc36287ec6e8f3a5b03790f4f39c295cf6769f638ab975201f7e'
-            '13eec84574f07a419964a52e8594248e3cc01f166fadb5c7c1b267c01999ef65'
+            'dacd39ba3510e92ec15dcf2573654f94cb56543c7a6825aa525031134ee55e1a'
             '464be53afcb73769e72f5a8476defe7e71344e67e96d693b28e04d0bedec9d80'
             'd48fe1f16dbc51fae47c123d56f378297b618f0968f092bdd587dd0c105a072e'
             '570b93c252cbc82aaefe618018d3da907a17b84610a6cf827e52905b6d7421af'
-            'bc3e2812b79e128b661d92e746464311611932012ba3609fc10b42b0e3bd0881'
             '28873983c239155dd6df26cb2edbb1985e18dd2223798eef4e5700b7a3ac8f14'
             'e5ca40661cd73d32c1932382eb75588b7eaaca54f3485642eeb74011e3b4e6ec'
             'f1c729ec5da705aae4ea0b9e5da35c8328e2bf6039447e6434acb00cafff4c3d'
@@ -232,7 +230,7 @@ _package-uki() {
   local cmdline_quiet="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0"
   local cmdline_root="root=PARTLABEL=linux rw"
   local cmdline_console="console=tty0"
-  local cmdline_other="systemd.gpt_auto=no cryptomgr.notests"
+  local cmdline_other="systemd.gpt_auto=no cryptomgr.notests panic=5"
 
   # Generate and sign UKI
   mkdir -p "${pkgdir}/boot/efi/EFI/arch"

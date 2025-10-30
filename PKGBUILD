@@ -66,7 +66,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0047-arch-arm64-boot-dts-qcom-sm8150-add-ufs-dependecy-on.patch'
         '0048-arch-arm64-boot-dts-qcom-sm8150-disable-broken-crypt.patch'
         '0049-nt36xxx-Change-pen-resolution-This-is-done-to-be-abl.patch'
-        'linux.preset')
+        'linux.preset'
+        'mkinitcpio-nabu.conf')
 sha256sums=('1a4be2fe6b5246aa4ac8987a8a4af34c42a8dd7d08b46ab48516bcc1befbcd83'
             '0c8a138e76654e854b08d3731a115d0a9d95b75f38fa65925f00979f0d4b0960'
             'e908a73e29d22ad994676c0b1e1234a3bb0441e51c675c8535143a4213adc527'
@@ -118,7 +119,8 @@ sha256sums=('1a4be2fe6b5246aa4ac8987a8a4af34c42a8dd7d08b46ab48516bcc1befbcd83'
             'ce16dbc5ff5a8ae4456dd3feaf69205c138f7eebdd55b974101a4cc9a122e935'
             '756c9921e2303c734f6a6f5273c0742f1648977e6427f479d989f16d7544daae'
             '37e6dbed716c012379175633ee58dc5eb13fed225d81a4055876e19c42b329b8'
-            '4521b5fc8964affe10f14c5bfa3ca9d12011c986f1f07d9d150d0726308fb9a1')
+            '6641f96a28ee155360a66dac2dce4c6f23a3f87abd810f14d406fefd6eb279be'
+            '180f753986205f1df139e4fc0012a0ffcd79e00311c213e6703b2cd6fd31e385')
 
 prepare() {
   cd $_srcname
@@ -195,6 +197,9 @@ _package() {
   sed "${_subst}" ../linux.preset |
     install -Dm644 /dev/stdin "${pkgdir}/etc/mkinitcpio.d/${pkgbase}.preset"
 
+  # install mkinitcpio configuration file with firmware
+  install -Dm644 ../mkinitcpio-nabu.conf "${pkgdir}/etc/mkinitcpio-nabu.conf"
+
   # rather than use another hook (90-linux.hook) rely on mkinitcpio's 90-mkinitcpio-install.hook
   # which avoids a double run of mkinitcpio that can occur
   install -d "${pkgdir}/usr/lib/initcpio/"
@@ -232,10 +237,34 @@ _package-uki() {
   local cmdline_console="console=tty0"
   local cmdline_other="systemd.gpt_auto=no cryptomgr.notests"
 
+  # Create temporary initramfs with firmware files
+  local tmpdir="$(mktemp -d)"
+  trap "rm -rf '$tmpdir'" EXIT
+
+  # Create directory structure for firmware files
+  mkdir -p "${tmpdir}/lib/firmware/qcom/sm8150/xiaomi/nabu"
+
+  # Copy firmware files if they exist on the build system
+  # Note: These files should be provided by linux-firmware package
+  if [[ -f "/lib/firmware/qcom/a630_sqe.fw" ]]; then
+    cp "/lib/firmware/qcom/a630_sqe.fw" "${tmpdir}/lib/firmware/qcom/"
+  fi
+  if [[ -f "/lib/firmware/qcom/a640_gmu.bin" ]]; then
+    cp "/lib/firmware/qcom/a640_gmu.bin" "${tmpdir}/lib/firmware/qcom/"
+  fi
+  if [[ -f "/lib/firmware/qcom/sm8150/xiaomi/nabu/a640_zap.mbn" ]]; then
+    cp "/lib/firmware/qcom/sm8150/xiaomi/nabu/a640_zap.mbn" "${tmpdir}/lib/firmware/qcom/sm8150/xiaomi/nabu/"
+  fi
+
+  # Create microcode initramfs from firmware directory
+  local initrd_firmware="${tmpdir}/initrd-firmware.img"
+  (cd "${tmpdir}" && find . -mindepth 1 -printf '%P\0' | sort -z | LANG=C bsdtar --null -cnf - -T - | LANG=C bsdtar --null -cf - --format=newc @-) > "${initrd_firmware}"
+
   # Generate and sign UKI
   mkdir -p "${pkgdir}/boot/efi/EFI/arch"
   ukify build \
     --linux="${pkgdir}/boot/vmlinux-${kernver}" \
+    --initrd="${initrd_firmware}" \
     --cmdline="${cmdline_console} ${cmdline_root} ${cmdline_quiet} ${cmdline_other}" \
     --uname="${kernver}" \
     --devicetree="${pkgdir}/boot/dtb-${kernver}" \

@@ -6,11 +6,11 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=106
+pkgrel=110
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc' 'python3' 'systemd-ukify' 'sbsigntools')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc' 'python3' 'systemd-ukify' 'sbsigntools' 'linux-firmware-xiaomi-nabu')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         'config'
@@ -79,7 +79,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '065-clk-qcom-clk-regmap-Add-udelay-in-clk_enable_regmap-.patch'
         'linux.preset')
 sha256sums=('9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7'
-            '0aba21b4cc451cf99b75c76723ceed52080bf435c7d3a7dd6d3281c17afaee42'
+            '6a3fcc20d3c0e23663a72a2a9c9dbdf4571d656711f417e674687062f9239982'
             '80f0d8d3d3076692f2beab0f24967efcdd896d2bda75788839cef29dc84299d0'
             '5ed3bf14ded494d8389c8a5f78effe505f5f5a86145264650f5401cd2f85d106'
             'ba3a4fae3c2b3de425986d4ab0da3ca0df2e9841892a768a64dd3784b7c3c94f'

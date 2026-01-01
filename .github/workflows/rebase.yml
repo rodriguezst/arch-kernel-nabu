@@ -76,9 +76,16 @@ jobs:
         uses: anthropics/claude-code-action/base-action@main
         env:
           GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.ANTHROPIC_MODEL_SMALL }}
+          DISABLE_PROMPT_CACHING: 1
+          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: 1
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: "--dangerously-skip-permissions"
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
           prompt: |
             I'm working on rebasing kernel patches and encountered conflicts during the rebase process. 
             CONTEXT:
@@ -191,9 +198,16 @@ jobs:
         uses: anthropics/claude-code-action/base-action@main
         env:
           GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.ANTHROPIC_MODEL_SMALL }}
+          DISABLE_PROMPT_CACHING: 1
+          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: 1
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: "--dangerously-skip-permissions"
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--model ${{ secrets.ANTHROPIC_MODEL }} --dangerously-skip-permissions"
           prompt: |
             I'm working on a kernel build that failed after rebasing patches. The build needs to be fixed intelligently.
             CONTEXT:

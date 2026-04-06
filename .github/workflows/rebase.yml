@@ -41,8 +41,9 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git am --whitespace=fix ../srcdir/*.patch
           rm -rf ../srcdir/*.patch
-          git fetch --unshallow origin
-          git fetch origin ${{ env.REF }}:refs/heads/${{ env.REF }}
+          git fetch --unshallow origin ${{ env.REF }}:${{ env.REF }}
+          
+          set +eo pipefail
           
           # Attempt rebase and capture result
           if git rebase ${{ env.REF }}; then

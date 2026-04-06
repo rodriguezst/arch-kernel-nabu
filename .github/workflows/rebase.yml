@@ -1,7 +1,7 @@
 name: rebase-patches
 
 env:
-  REPO: 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git'
+  REPO: 'git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git'
   REF: 'linux-rolling-stable'
 
 on:
@@ -41,7 +41,8 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git am --whitespace=fix ../srcdir/*.patch
           rm -rf ../srcdir/*.patch
-          git fetch --unshallow origin ${{ env.REF }}:${{ env.REF }}
+          git fetch --unshallow origin
+          git fetch origin ${{ env.REF }}:refs/heads/${{ env.REF }}
           
           # Attempt rebase and capture result
           if git rebase ${{ env.REF }}; then

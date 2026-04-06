@@ -14,7 +14,7 @@ index 795a54dda9cf..52361d6b04d1 100644
 +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
 @@ -2087,6 +2087,8 @@ ufs_mem_hc: ufshc@1d84000 {
  			resets = <&gcc GCC_UFS_PHY_BCR>;
- 			reset-names = "core_reset";
+ 			reset-names = "rst";
  
 +			power-domains = <&gcc UFS_PHY_GDSC>;
 +

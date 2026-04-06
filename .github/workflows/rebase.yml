@@ -222,7 +222,7 @@ jobs:
             TASK:
             Please analyze and fix the build issues by:
             1. **Analyze build failures**:
-               - Read the build context from ../BUILD_CONTEXT.md  
+               - Read the build context from ../BUILD_CONTEXT.md
                - Examine build.log for detailed error messages
                - Categorize errors: missing symbols, API changes, header issues, config conflicts
                - Identify which patches or changes are causing the issues
@@ -233,13 +233,15 @@ jobs:
                - For config conflicts: resolve dependencies and enable/disable options appropriately
             3. **Apply fixes iteratively**:
                - Fix issues one category at a time
-               - Test build after each major fix attempt
                - If patches need modification, update them properly
-               - Use `make -j$(nproc)` to test builds
-            4. **Update configuration if needed**:
                - Use `scripts/config --enable` or `scripts/config --disable` for config changes
                - Run `make olddefconfig` after config changes
-               - Ensure configuration is consistent and buildable
+            4. **CRITICAL - Iterate until the build passes**:
+               - After applying fixes, run `cd /home/runner/work/.../linux && make -j$(nproc) Image.gz dtbs modules 2>&1 | tee build_attempt.log` to verify
+               - If the build STILL FAILS, read the new errors from build_attempt.log, analyze them, apply additional fixes, and rebuild
+               - Repeat this fix-and-rebuild cycle until `make -j$(nproc) Image.gz dtbs modules` succeeds
+               - You have permission to run long-running build processes - wait for them to complete
+               - Do NOT stop after a single fix attempt. Keep iterating until the build is green or you have exhausted reasonable approaches
             5. **Document all fixes**:
                - Create ../BUILD_FIX_LOG.md with detailed explanations
                - Document each error found and how it was resolved
@@ -251,16 +253,15 @@ jobs:
                rm -f ../srcdir/*.patch
                git format-patch ${{ env.REF }} --start-number=1 -o ../srcdir -- . ':!arch/*/configs/*'
                ```
-            7. **Final validation**:
-               - Ensure the complete build succeeds: `make -j$(nproc) Image.gz dtbs modules`
-               - Copy the final working config: `cp .config ../srcdir/config`
+            7. **Final state**:
+               - When the build succeeds, copy the final working config: `cp .config ../srcdir/config`
+               - The build MUST pass before you finish. If you cannot fix it after multiple attempts, document what remains broken in ../BUILD_FIX_LOG.md
             IMPORTANT GUIDELINES:
             - Preserve functionality of patches while adapting to new kernel APIs
             - Make minimal necessary changes to achieve compilation
             - Disable problematic patches only if they're fundamentally incompatible
             - Follow Linux kernel coding standards
-            - Test incrementally to isolate issues
-            Please proceed with fixing these build issues intelligently.
+            Please proceed with fixing these build issues intelligently. REMEMBER: keep rebuilding until it works.
       - name: Verify successful build after Claude fixes
         if: env.KERNVER != env.PKGVER
         shell: bash

@@ -1,7 +1,7 @@
-From 29ca4a8d23c27a981f1a581d9fa803e2d94cd6de Mon Sep 17 00:00:00 2001
+From a54fee2befffab9f2a5960e356510ee554e4419a Mon Sep 17 00:00:00 2001
 From: tx0 <me@tx0.su>
 Date: Sat, 29 Mar 2025 16:33:10 +0500
-Subject: [PATCH 48/49] nt36xxx: Change pen resolution This is done to be able
+Subject: [PATCH 47/49] nt36xxx: Change pen resolution This is done to be able
  to use newer firmware with pen fixes
  https://github.com/dev-harsh1998/android_kernel_xiaomi_nabu/tree/lineage-22.1/firmware
 
@@ -38,5 +38,5 @@ index 9f0c58083d25..46cc0dd60c88 100644
  			x_max = ts->abs_x_max - 1;
  			y_max = ts->abs_y_max - 1;
 -- 
-2.51.0
+2.53.0
 

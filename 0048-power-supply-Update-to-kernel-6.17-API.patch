@@ -1,17 +1,17 @@
-From ad21d5430d2dc3aea189b26541ee487ad4dda8b9 Mon Sep 17 00:00:00 2001
-From: "rodriguezst" <2828844+rodriguezst@users.noreply.github.com>
+From 879569694ec3918fd94c52b96e4b33b7c7a3ed37 Mon Sep 17 00:00:00 2001
+From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Tue, 30 Sep 2025 14:09:23 +0000
-Subject: [PATCH 49/49] power: supply: Update to kernel 6.17 API
+Subject: [PATCH 48/49] power: supply: Update to kernel 6.17 API
 
 The power_supply subsystem was updated to use the generic firmware node
 API (fwnode) instead of device tree-specific API (of_node).
 ---
  drivers/power/supply/ln8000_charger.c | 4 ++--
- drivers/power/supply/qcom_fg.c        | 5 ++---
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ drivers/power/supply/qcom_fg.c        | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/power/supply/ln8000_charger.c b/drivers/power/supply/ln8000_charger.c
-index da3d78187a80..8f580e600d7d 100644
+index da3d78187a80..2a48696f329d 100644
 --- a/drivers/power/supply/ln8000_charger.c
 +++ b/drivers/power/supply/ln8000_charger.c
 @@ -1492,7 +1492,7 @@ static int ln8000_parse_dt(struct ln8000_info *info)
@@ -33,7 +33,7 @@ index da3d78187a80..8f580e600d7d 100644
      if(info->typec_psy == NULL){
  	ret = -(EPROBE_DEFER);
 diff --git a/drivers/power/supply/qcom_fg.c b/drivers/power/supply/qcom_fg.c
-index 2d6ad9f9718d..5f0be854435c 100644
+index 2d6ad9f9718d..0879b6201736 100644
 --- a/drivers/power/supply/qcom_fg.c
 +++ b/drivers/power/supply/qcom_fg.c
 @@ -1201,7 +1201,7 @@ static int qcom_fg_probe(struct platform_device *pdev)
@@ -55,5 +55,5 @@ index 2d6ad9f9718d..5f0be854435c 100644
  	if (IS_ERR(chip->chg_psy)) {
  		ret = PTR_ERR(chip->chg_psy);
 -- 
-2.51.0
+2.53.0
 

@@ -1,4 +1,4 @@
-From 2239bf5b701c0e717b537b77c85e4555cb630d47 Mon Sep 17 00:00:00 2001
+From 3685d9e46afa7b05f471dd6dd5a7ace3c17ca082 Mon Sep 17 00:00:00 2001
 From: Pan Ortiz <panjeoc@proton.me>
 Date: Wed, 13 Nov 2024 13:12:14 +0000
 Subject: [PATCH 38/49] arch: arm64: boot: dts: qcom: sm8150-xiaomi-nabu.dts:
@@ -34,5 +34,5 @@ index 0c23073e6f5c..5d9446b19d27 100644
  	compatible = "qcom,sm8150-sndcard";
  	pinctrl-0 = <&quat_tdm_active
 -- 
-2.51.0
+2.53.0
 

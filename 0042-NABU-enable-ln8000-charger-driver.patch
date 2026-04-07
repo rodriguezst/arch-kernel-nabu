@@ -1,4 +1,4 @@
-From 5df94ea49076995f35042dece98201f3b56eab8f Mon Sep 17 00:00:00 2001
+From b7d435d87f07a47c2f8b7be7ba97c5f63fa89bb5 Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Tue, 26 Nov 2024 10:54:51 +0000
 Subject: [PATCH 42/49] NABU: enable ln8000 charger driver
@@ -9,7 +9,7 @@ Subject: [PATCH 42/49] NABU: enable ln8000 charger driver
  2 files changed, 24 insertions(+), 21 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
-index 34177e637ada..4c8d79aee81f 100644
+index 5b06a2cb2b3c..5b36d902a4bd 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
 @@ -506,7 +506,7 @@ ln8000_charger@51 {
@@ -110,5 +110,5 @@ index f4c386bf2a9f..da3d78187a80 100644
 \ No newline at end of file
 +MODULE_VERSION("0.3.0");
 -- 
-2.51.0
+2.53.0
 

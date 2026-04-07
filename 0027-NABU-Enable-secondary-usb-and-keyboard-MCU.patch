@@ -1,4 +1,4 @@
-From 9fd17a6c8aeea993cbbe0d421ff372ebc1474554 Mon Sep 17 00:00:00 2001
+From daa50113deee5142ec009dc675120ce376362d50 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 9 Jan 2024 16:36:30 +0000
 Subject: [PATCH 27/49] NABU: Enable secondary usb and keyboard MCU.
@@ -102,5 +102,5 @@ index 8ad0e42cea72..c125e6575e9e 100644
  	reset-gpios = <&tlmm 143 GPIO_ACTIVE_HIGH>;
  	vdd-buck-sido-supply = <&vreg_s4a_1p8>;
 -- 
-2.51.0
+2.53.0
 

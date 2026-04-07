@@ -1,4 +1,4 @@
-From e039a20d4d9750444d21f2d7b88945f754363772 Mon Sep 17 00:00:00 2001
+From 0bdfd7730655b4b13c02eebf3978037bbf365639 Mon Sep 17 00:00:00 2001
 From: map220v <map220v300@gmail.com>
 Date: Tue, 28 Nov 2023 15:28:53 +0300
 Subject: [PATCH 23/49] input: nt36xxx: Enable pen support
@@ -114,5 +114,5 @@ index 4f383dac2c3c..71c271d8c548 100644
  	mutex_unlock(&ts->lock);
  }
 -- 
-2.51.0
+2.53.0
 

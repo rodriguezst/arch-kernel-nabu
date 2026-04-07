@@ -1,7 +1,7 @@
-From e9fa54493604070e98938517b7e980eb51ca448e Mon Sep 17 00:00:00 2001
+From 17a9a4de8847f3b4914fb8e2347bed9fe610bdf5 Mon Sep 17 00:00:00 2001
 From: rodriguezst <2828844+rodriguezst@users.noreply.github.com>
 Date: Tue, 14 Oct 2025 09:17:57 +0000
-Subject: [PATCH 01/11] NABU: remove resets from ufs related nodes to avoid
+Subject: [PATCH 39/49] NABU: remove resets from ufs related nodes to avoid
  reinitialization after uefi handoff
 
 This is needed in some nabu tablets to fix UFS
@@ -10,7 +10,7 @@ This is needed in some nabu tablets to fix UFS
  1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
-index 5d9446b19..d023cd80f 100644
+index 5d9446b19d27..d023cd80fdec 100644
 --- a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
 @@ -1057,6 +1057,9 @@ &ufs_mem_hc {
@@ -34,5 +34,5 @@ index 5d9446b19..d023cd80f 100644
  
  &usb_1 {
 -- 
-2.50.1
+2.53.0
 

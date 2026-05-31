@@ -9,7 +9,7 @@ _kernelname=${pkgbase#linux}
 _desc="AArch64 Xiaomi Pad 5"
 _srcname="linux-${pkgver/%.0/}"
 _dtbfile='qcom/sm8150-xiaomi-nabu.dtb'
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -66,6 +66,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0047-nt36xxx-Change-pen-resolution-This-is-done-to-be-abl.patch'
         '0048-power-supply-Update-to-kernel-6.17-API.patch'
         '0049-arch-arm64-boot-dts-qcom-sm8150-add-reset-to-mdss.patch'
+        '0050-drm-msm-dsi-Move-MI_DRM_BLANK_UNBLANK-notification-to-.patch'
         'linux.preset')
 sha256sums=('20039d7b6b256c08be2f8fac43c3ff9a620308c703c643cf2f80c3910b9bd59b'
             '3bcef0458491235064d935da63d9577102af0c08369408c1f198f075b9873c1b'
@@ -118,6 +119,7 @@ sha256sums=('20039d7b6b256c08be2f8fac43c3ff9a620308c703c643cf2f80c3910b9bd59b'
             'ba5d5cdb0f518b6ba2f7081cfa4a824b99612b6cb583070ffb80f7bcac225735'
             'cf52cc138ac5323ba147a88551aac01e0f3764776e33a8f6db38e0195ccd6a7b'
             'e863d51a077b5e80809db46ad1d0fbdeb7658bfc922c74314756a30aad6e2649'
+            '247a77569c986ce6a52a1168f5223131e4c828b1cb49a496a6581c9126faabbb'
             '4521b5fc8964affe10f14c5bfa3ca9d12011c986f1f07d9d150d0726308fb9a1')
 
 prepare() {
